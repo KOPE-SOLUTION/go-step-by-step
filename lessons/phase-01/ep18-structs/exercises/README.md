@@ -1,19 +1,7 @@
-# แบบฝึกหัด EP.18 — รวมข้อมูลหนึ่งรายการด้วย struct
+# แบบฝึกหัด EP.18
 
-สร้างพื้นที่ฝึกจากรากหลักสูตรด้วย `./scripts/new-practice.ps1 -Episode 18` แล้วเปิด `practics/phase-01/ep18-structs` ([วิธีใช้](../../../../docs/PRACTICE.md))
+โจทย์ 2 ข้อ ไฟล์ที่ต้องแก้ และคำสั่งรันอยู่ในหน้าเดียวแล้ว:
 
-## ข้อ 1
+[เปิดหัวข้อ 3. ฝึกเอง](../README.md#practice)
 
-สร้าง Reading ที่ DeviceID เป็น sensor-02 โดยไม่ใส่ Celsius แล้วพิมพ์ทั้งสองช่อง
-
-## ข้อ 2
-
-คัดลอก Reading ค่า 25 แล้วแก้ Celsius ของสำเนาเป็น 30 พิมพ์ Celsius ของทั้งสอง
-
-คาดเดาผลก่อนแก้ แล้วรันจากโฟลเดอร์ฝึก:
-
-```powershell
-go run ./examples
-```
-
-[เฉลยและคำอธิบาย](../solutions/README.md) · [กลับบทเรียน](../README.md)
+[ดูเฉลยหลังลองทำ](../solutions/README.md)

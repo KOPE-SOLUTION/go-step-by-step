@@ -44,9 +44,33 @@ go run ./examples
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: ทำไมแยกการคืนค่าจากการพิมพ์จึงช่วยการทดสอบ?
+ใช้ **`practics/main.go` ไฟล์เดิม** เปลี่ยนเนื้อหาทั้งไฟล์เป็นโค้ดจาก [ตัวอย่าง EP นี้](examples/main.go) แล้วทำโจทย์ด้านล่าง
+
+ถ้ายังไม่มีไฟล์ ให้สร้างโฟลเดอร์ `practics` ใน `Go` แล้วสร้าง `main.go` ข้างใน ไม่ต้องมี `examples` หรือ `go.mod` ดู [วิธีสร้างครั้งแรก](../../../docs/PRACTICE.md)
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. แปลง 0 องศาเซลเซียสแล้วพิมพ์ทศนิยมหนึ่งตำแหน่ง
+2. เขียน isWarning(temperature float64) bool ให้คืนค่าการเปรียบเทียบ temperature >= 30 แล้วพิมพ์ผลเมื่อส่ง 30
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run main.go
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+ทำไมแยกการคืนค่าจากการพิมพ์จึงช่วยการทดสอบ?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

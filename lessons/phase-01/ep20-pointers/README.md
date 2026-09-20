@@ -45,9 +45,33 @@ go run ./examples
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: เครื่องหมาย * ใน *float64 และ *value ทำหน้าที่เหมือนกันหรือไม่?
+ใช้ **`practics/main.go` ไฟล์เดิม** เปลี่ยนเนื้อหาทั้งไฟล์เป็นโค้ดจาก [ตัวอย่าง EP นี้](examples/main.go) แล้วทำโจทย์ด้านล่าง
+
+ถ้ายังไม่มีไฟล์ ให้สร้างโฟลเดอร์ `practics` ใน `Go` แล้วสร้าง `main.go` ข้างใน ไม่ต้องมี `examples` หรือ `go.mod` ดู [วิธีสร้างครั้งแรก](../../../docs/PRACTICE.md)
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เปลี่ยนค่าเริ่ม 20 และ offset -0.5 ให้ได้ 19.5
+2. สร้าง n := 5 และ p := &n แล้วเพิ่มค่าผ่าน *p อีก 1 พิมพ์ n
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run main.go
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+เครื่องหมาย * ใน *float64 และ *value ทำหน้าที่เหมือนกันหรือไม่?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

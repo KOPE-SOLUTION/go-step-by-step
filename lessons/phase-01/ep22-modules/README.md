@@ -37,9 +37,47 @@ true
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: หนึ่ง module มีหลาย package ได้ไหม และ fmt อยู่ใน module ของบทนี้หรือไม่?
+ใช้ **`practics` และ `go.mod` เดิมจาก EP.21** หากยังไม่ได้เตรียม ให้ทำ [ขั้นตอน EP.21](../ep21-packages/README.md#practice) ก่อน
+
+เขียนทับ `main.go` ด้วยโค้ดตั้งต้นด้านล่าง โดยใช้ import `example.com/go-practice/sensor` ตามชื่อ module ฝึก ไม่ต้องคัดลอก `go.mod` จากตัวอย่างบทเรียน
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"example.com/go-practice/sensor"
+)
+
+func main() {
+	fmt.Println(sensor.IsWarning(30))
+}
+```
+
+**แก้ `go.mod` และ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เปิดไฟล์ `go.mod` แล้วรัน `go list ./...` ในโฟลเดอร์ฝึก อธิบายว่าอันใดคือ module และ package จากนั้นแก้ค่าที่ส่งให้ `sensor.IsWarning` เป็น `25` แล้วรัน
+2. เปลี่ยนค่าที่ส่งให้ `sensor.IsWarning` เป็น `35` โดยคง `go.mod` เดิม แล้วรันอีกครั้ง
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+หนึ่ง module มีหลาย package ได้ไหม และ fmt อยู่ใน module ของบทนี้หรือไม่?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>
@@ -50,7 +88,7 @@ go.mod คือไฟล์ประกาศชื่อ module และ Go v
 
 - go.mod กำหนด module example.com/go-course/basic/ep22 จึง import package ย่อยด้วยชื่อนี้ต่อ /sensor
 - go 1.22.0 คือเวอร์ชันขั้นต่ำที่ module ประกาศ ไม่ใช่คำสั่งติดตั้ง; ตัวอย่างตรวจด้วย Go ที่มีในเครื่อง
-- เราเลือกหนึ่ง module ต่อ EP เพื่อรันและลองแต่ละบทแยกกัน เป็นทางเลือกสำหรับหลักสูตร ไม่ใช่กฎว่าทุกแอปต้องแยกแบบนี้
+- ตัวอย่างใน `lessons/` มีหนึ่ง module ต่อ EP เพื่อเปิดย้อนดูและทดสอบแยกกัน ส่วนพื้นที่ฝึกใช้ module `example.com/go-practice` ชุดเดียวต่อเนื่อง
 
 **ข้อผิดพลาดที่พบบ่อย**
 

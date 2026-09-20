@@ -43,9 +43,33 @@ sensor-02
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: ทำไมเปลี่ยนค่าครั้งที่สองจึงใช้ = แทน :=?
+ใช้ **`practics/main.go` ไฟล์เดิม** เปลี่ยนเนื้อหาทั้งไฟล์เป็นโค้ดจาก [ตัวอย่าง EP นี้](examples/main.go) แล้วทำโจทย์ด้านล่าง
+
+ถ้ายังไม่มีไฟล์ ให้สร้างโฟลเดอร์ `practics` ใน `Go` แล้วสร้าง `main.go` ข้างใน ไม่ต้องมี `examples` หรือ `go.mod` ดู [วิธีสร้างครั้งแรก](../../../docs/PRACTICE.md)
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เริ่ม sensor-03 แล้วเปลี่ยนเป็น sensor-04 พิมพ์ก่อนและหลัง
+2. ให้ผลสองบรรทัดเป็น deviceName และ sensor-01 ตามลำดับ
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run main.go
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+ทำไมเปลี่ยนค่าครั้งที่สองจึงใช้ = แทน :=?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

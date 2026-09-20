@@ -1,5 +1,7 @@
 # ผลตรวจ Phase 1 — Go Basic
 
+> บันทึกนี้เป็นผลตรวจโครงสร้างเดิม วิธีฝึกปัจจุบันใช้ `practics/main.go` ร่วมกันทุก EP ดู [วิธีฝึก](../docs/PRACTICE.md) และ [ผลตรวจวิธีฝึกปัจจุบัน](shared-practice-results.md)
+
 วันที่ 2026-09-19 • Windows x64 • Go 1.27.1 windows/amd64 • PowerShell 7.6.5
 
 ## ขอบเขตที่ตรวจจริง

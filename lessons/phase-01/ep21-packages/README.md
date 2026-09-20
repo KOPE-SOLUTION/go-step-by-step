@@ -53,9 +53,51 @@ true
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: ถ้าเปลี่ยนชื่อฟังก์ชันเป็น isWarning ทำไมอีก package เรียกไม่ได้?
+ใช้ **`practics` โฟลเดอร์เดิม** บทนี้เพิ่มไฟล์เพื่อแยก package:
+
+1. รัน `go mod init example.com/go-practice` จาก `practics` **ครั้งเดียว** จะได้ `go.mod` ซึ่งระบุชื่อชุดโค้ดนี้ หากมีไฟล์นี้แล้วไม่ต้องรันซ้ำ ใช้ชื่อหลัง `module` ให้ตรงกับ import ด้านล่าง
+2. สร้างโฟลเดอร์ `sensor` ใน `practics` และสร้าง `reading.go` ข้างใน พิมพ์โค้ด `package sensor` จากหัวข้อ 1
+3. เขียนทับ `practics/main.go` ด้วยโค้ดนี้ แล้วทำโจทย์:
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"example.com/go-practice/sensor"
+)
+
+func main() {
+	fmt.Println(sensor.IsWarning(30))
+}
+```
+
+`example.com/go-practice/sensor` คือชื่อ module ต่อด้วย `/sensor` ชี้ไปยังโค้ดในเครื่อง รายละเอียด `go.mod` จะเรียนต่อใน EP.22
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เรียก sensor.IsWarning ด้วย 29.9
+2. เรียกด้วย 30 และ 31 คนละบรรทัด
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+ถ้าเปลี่ยนชื่อฟังก์ชันเป็น isWarning ทำไมอีก package เรียกไม่ได้?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

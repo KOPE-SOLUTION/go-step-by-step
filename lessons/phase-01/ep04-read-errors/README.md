@@ -39,9 +39,33 @@ Go แยกตัวอักษรใหญ่กับเล็ก: `fmt.Prin
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: go ไม่เป็นที่รู้จัก กับ undefined: fmt.println ต่างกันที่ขั้นไหน?
+ใช้ **`practics/main.go` ไฟล์เดิม** เปลี่ยนเนื้อหาทั้งไฟล์เป็นโค้ดจาก [ตัวอย่าง EP นี้](examples/main.go) แล้วทำโจทย์ด้านล่าง
+
+ถ้ายังไม่มีไฟล์ ให้สร้างโฟลเดอร์ `practics` ใน `Go` แล้วสร้าง `main.go` ข้างใน ไม่ต้องมี `examples` หรือ `go.mod` ดู [วิธีสร้างครั้งแรก](../../../docs/PRACTICE.md)
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เปลี่ยน `fmt.Println` เป็น `fmt.println` ลองรันและอ่านข้อความผิดพลาด แล้วแก้กลับให้แสดง `Check complete`
+2. ลบ `import "fmt"` ชั่วคราว ลองรันและอ่าน error จากนั้นใส่กลับ แล้วเปลี่ยนข้อความเป็น `Fixed`
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run main.go
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+go ไม่เป็นที่รู้จัก กับ undefined: fmt.println ต่างกันที่ขั้นไหน?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

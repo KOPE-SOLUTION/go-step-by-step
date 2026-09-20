@@ -1,6 +1,6 @@
 # เฉลย EP.28
 
-เปิดหลังลอง [แบบฝึกหัด](../exercises/README.md) คำสั่งด้านล่างรันจากโฟลเดอร์ต้นฉบับ `lessons/phase-01/ep28-project-tests`
+เปิดหลังลอง [แบบฝึกหัดในบทเรียน](../README.md#practice) คำสั่งด้านล่างรันจากโฟลเดอร์ต้นฉบับ `lessons/phase-01/ep28-project-tests`
 
 กรอบผลลัพธ์เป็นของ go run ส่วน go test จะแสดง ok เมื่อผ่าน
 

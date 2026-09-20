@@ -1,6 +1,6 @@
 # เฉลย EP.23
 
-เปิดหลังลอง [แบบฝึกหัด](../exercises/README.md) คำสั่งด้านล่างรันจากโฟลเดอร์ต้นฉบับ `lessons/phase-01/ep23-first-test`
+เปิดหลังลอง [แบบฝึกหัดในบทเรียน](../README.md#practice) คำสั่งด้านล่างรันจากโฟลเดอร์ต้นฉบับ `lessons/phase-01/ep23-first-test`
 
 กรอบผลลัพธ์เป็นของ go run ส่วน go test จะแสดง ok เมื่อผ่าน
 

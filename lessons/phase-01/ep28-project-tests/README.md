@@ -46,9 +46,96 @@ sensor-04: 28.0 C [OK]
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: ก่อนบอกว่าเรียน Phase 1 จบ ควรทำอะไรได้ด้วยตนเอง?
+ใช้ **`practics/main.go` ไฟล์เดิม** และ `go.mod` จาก EP.21 เขียนทับ `main.go` ด้วยโค้ดตั้งต้นที่รวมไว้ด้านล่าง แล้วทำโจทย์
+
+<details>
+<summary>โค้ดตั้งต้นสำหรับ main.go</summary>
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	readings := []Reading{
+		{DeviceID: "sensor-01", Celsius: 27.5},
+		{DeviceID: "sensor-02", Celsius: 30},
+		{DeviceID: "sensor-03", Celsius: -1},
+		{DeviceID: "sensor-04", Celsius: 28},
+	}
+	for _, line := range buildReport(readings) {
+		fmt.Println(line)
+	}
+}
+
+type Reading struct {
+	DeviceID string
+	Celsius  float64
+}
+
+func status(reading Reading) string {
+	if reading.Celsius >= 30 {
+		return "WARNING"
+	}
+	return "OK"
+}
+
+func validate(reading Reading) error {
+	if reading.DeviceID == "" {
+		return errors.New("device ID is empty")
+	}
+	if reading.Celsius < 0 || reading.Celsius > 100 {
+		return errors.New("temperature outside simulated range")
+	}
+	return nil
+}
+
+func buildReport(readings []Reading) []string {
+	lines := []string{}
+	for _, reading := range readings {
+		err := validate(reading)
+		if err != nil {
+			lines = append(lines, fmt.Sprintf("%s: ERROR: %v", reading.DeviceID, err))
+			continue
+		}
+		line := fmt.Sprintf("%s: %.1f C [%s]", reading.DeviceID, reading.Celsius, status(reading))
+		lines = append(lines, line)
+	}
+	return lines
+}
+```
+
+</details>
+
+ใช้ `practics/main_test.go` แล้วเขียนทับด้วยโค้ดทั้งไฟล์จาก [ตัวอย่าง test](examples/model_test.go) ไฟล์ทดสอบต้องลงท้าย `_test.go` จึงแยกจาก `main.go`
+
+**แก้ `main_test.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เพิ่ม test ใน `main_test.go` สำหรับข้อมูลหนึ่งรายการที่ชื่อว่าง ต้องได้ข้อความ `: ERROR: device ID is empty`
+2. เพิ่ม test สำหรับข้อมูลผิดสองรายการติดกัน ตามด้วยข้อมูลถูกหนึ่งรายการ ต้องได้รายงานครบสามบรรทัด
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+go test .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+ก่อนบอกว่าเรียน Phase 1 จบ ควรทำอะไรได้ด้วยตนเอง?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

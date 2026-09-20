@@ -1,19 +1,7 @@
-# แบบฝึกหัด EP.3 — พิมพ์หลายบรรทัดและอ่านลำดับคำสั่ง
+# แบบฝึกหัด EP.3
 
-สร้างพื้นที่ฝึกจากรากหลักสูตรด้วย `./scripts/new-practice.ps1 -Episode 3` แล้วเปิด `practics/phase-01/ep03-output-lines` ([วิธีใช้](../../../../docs/PRACTICE.md))
+โจทย์ 2 ข้อ ไฟล์ที่ต้องแก้ และคำสั่งรันอยู่ในหน้าเดียวแล้ว:
 
-## ข้อ 1
+[เปิดหัวข้อ 3. ฝึกเอง](../README.md#practice)
 
-พิมพ์ READY ก่อน Device: sensor-01
-
-## ข้อ 2
-
-ใช้ Println สองครั้งให้ได้ Device: sensor-01 และ STOPPED คนละบรรทัด
-
-คาดเดาผลก่อนแก้ แล้วรันจากโฟลเดอร์ฝึก:
-
-```powershell
-go run ./examples
-```
-
-[เฉลยและคำอธิบาย](../solutions/README.md) · [กลับบทเรียน](../README.md)
+[ดูเฉลยหลังลองทำ](../solutions/README.md)

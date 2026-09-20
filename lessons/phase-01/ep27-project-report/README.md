@@ -50,9 +50,93 @@ buildReport คืนบรรทัดรายงานให้ main พิ�
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: continue ต่างจาก return ใน buildReport อย่างไร?
+ใช้ **`practics/main.go` ไฟล์เดิม** และ `go.mod` จาก EP.21 เขียนทับ `main.go` ด้วยโค้ดตั้งต้นที่รวมไว้ด้านล่าง แล้วทำโจทย์
+
+<details>
+<summary>โค้ดตั้งต้นสำหรับ main.go</summary>
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	readings := []Reading{
+		{DeviceID: "sensor-01", Celsius: 27.5},
+		{DeviceID: "sensor-02", Celsius: 30},
+		{DeviceID: "sensor-03", Celsius: -1},
+		{DeviceID: "sensor-04", Celsius: 28},
+	}
+	for _, line := range buildReport(readings) {
+		fmt.Println(line)
+	}
+}
+
+type Reading struct {
+	DeviceID string
+	Celsius  float64
+}
+
+func status(reading Reading) string {
+	if reading.Celsius >= 30 {
+		return "WARNING"
+	}
+	return "OK"
+}
+
+func validate(reading Reading) error {
+	if reading.DeviceID == "" {
+		return errors.New("device ID is empty")
+	}
+	if reading.Celsius < 0 || reading.Celsius > 100 {
+		return errors.New("temperature outside simulated range")
+	}
+	return nil
+}
+
+func buildReport(readings []Reading) []string {
+	lines := []string{}
+	for _, reading := range readings {
+		err := validate(reading)
+		if err != nil {
+			lines = append(lines, fmt.Sprintf("%s: ERROR: %v", reading.DeviceID, err))
+			continue
+		}
+		line := fmt.Sprintf("%s: %.1f C [%s]", reading.DeviceID, reading.Celsius, status(reading))
+		lines = append(lines, line)
+	}
+	return lines
+}
+```
+
+</details>
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เพิ่ม sensor-05 ค่า 31 ต่อท้ายและดูรายงานครบห้าบรรทัด
+2. ส่ง []Reading{} แล้วตรวจว่าไม่มีบรรทัดรายงานและไม่ล้ม
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+continue ต่างจาก return ใน buildReport อย่างไร?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

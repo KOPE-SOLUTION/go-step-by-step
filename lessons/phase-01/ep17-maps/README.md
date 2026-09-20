@@ -44,9 +44,33 @@ go run ./examples
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: ทำไมการทดสอบไม่ควรอิงลำดับที่ range map ให้มา?
+ใช้ **`practics/main.go` ไฟล์เดิม** เปลี่ยนเนื้อหาทั้งไฟล์เป็นโค้ดจาก [ตัวอย่าง EP นี้](examples/main.go) แล้วทำโจทย์ด้านล่าง
+
+ถ้ายังไม่มีไฟล์ ให้สร้างโฟลเดอร์ `practics` ใน `Go` แล้วสร้าง `main.go` ข้างใน ไม่ต้องมี `examples` หรือ `go.mod` ดู [วิธีสร้างครั้งแรก](../../../docs/PRACTICE.md)
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. สร้าง map ว่าง เพิ่ม sensor-02 ค่า 28.5 แล้วค้นและพิมพ์พร้อม ok
+2. สร้าง map ของ sensor-01 ค่า 25 ลบด้วย delete แล้วค้นพร้อม ok
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run main.go
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+ทำไมการทดสอบไม่ควรอิงลำดับที่ range map ให้มา?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

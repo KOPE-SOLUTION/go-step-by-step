@@ -58,9 +58,53 @@ false
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: เหตุใดค่า 30 พอดีจึงสำคัญกว่าทดสอบ 31 หลายครั้ง?
+ใช้ **`practics/main.go` ไฟล์เดิม** และ `go.mod` จาก EP.21 เขียนทับ `main.go` ด้วยโค้ดตั้งต้นที่รวมไว้ด้านล่าง แล้วทำโจทย์
+
+<details>
+<summary>โค้ดตั้งต้นสำหรับ main.go</summary>
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(isWarning(29.9))
+}
+
+func isWarning(celsius float64) bool {
+	return celsius >= 30
+}
+```
+
+</details>
+
+ใช้ `practics/main_test.go` แล้วเขียนทับด้วยโค้ดทั้งไฟล์จาก [ตัวอย่าง test](examples/threshold_test.go) ไฟล์ทดสอบต้องลงท้าย `_test.go` จึงแยกจาก `main.go`
+
+**แก้ `main.go` และ `main_test.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เพิ่มกรณีค่า `0` ซึ่งต้องได้ `false` ในตารางของ `main_test.go`
+2. เปลี่ยนเกณฑ์เตือนเป็น `35` ใน `main.go` แล้วแก้ตารางทดสอบให้ครอบคลุม `34.9`, `35` และ `35.1`
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+go test .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+เหตุใดค่า 30 พอดีจึงสำคัญกว่าทดสอบ 31 หลายครั้ง?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

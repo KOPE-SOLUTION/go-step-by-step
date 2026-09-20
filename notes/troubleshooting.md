@@ -20,7 +20,11 @@ dir
 
 ที่โฟลเดอร์ `lessons/01-hello-go` จะเห็น `go.mod` กับ `examples` ใช้ `go run ./examples/hello` ถ้าอยู่ผิดโฟลเดอร์ ใน VS Code ให้คลิกขวาโฟลเดอร์บทเรียนแล้วเลือก **Open in Integrated Terminal**
 
-ส่วนงานที่แก้ฝึกเองใช้โฟลเดอร์ `Go/practics/phase-01/ep01-hello-go` และสั่ง `go run .` จากในโฟลเดอร์นั้น ดู [วิธีฝึก](../docs/PRACTICE.md) การรันราก `Go` หรือรากบทด้วย `go run .` จะไม่ใช่ตำแหน่งของโปรแกรมตัวอย่าง
+งานฝึกใช้ `practics/main.go` รัน `go run main.go` จาก `practics` สำหรับ EP.1–20 เมื่อถึง EP.21 ให้สร้าง `go.mod` ตามบทแล้วใช้ `go run .` ดู [วิธีฝึก](../docs/PRACTICE.md)
+
+- พบ `stat main.go: no such file or directory`: ตรวจว่า terminal อยู่ใน `practics` และบันทึกชื่อ `main.go` แล้ว
+- พบ `main redeclared`: มีโค้ดโปรแกรมเก่าซ้ำในไฟล์ `.go` อื่น เก็บสำเนาเป็น `.txt` แล้วเหลือโปรแกรมปัจจุบันใน `main.go`
+- พบ `undefined` จาก `main_test.go` หลังเริ่ม EP.25: ไฟล์ test ยังเป็นของ EP.24 ให้เปลี่ยนเนื้อหาเหลือ `package main` ตามขั้นตอนใน EP.25
 
 ## 3. อ่าน compiler error
 

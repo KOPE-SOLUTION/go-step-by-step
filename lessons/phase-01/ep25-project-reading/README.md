@@ -47,9 +47,61 @@ main.go สร้าง Reading แล้วเรียก status เพื่�
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: สถานะควรคำนวณจากค่าจริงหรือข้อความที่จัดรูปแบบแล้ว?
+ใช้ **`practics/main.go` ไฟล์เดิม** และ `go.mod` จาก EP.21 เขียนทับ `main.go` ด้วยโค้ดตั้งต้นที่รวมไว้ด้านล่าง แล้วทำโจทย์
+
+<details>
+<summary>โค้ดตั้งต้นสำหรับ main.go</summary>
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	reading := Reading{DeviceID: "sensor-01", Celsius: 27.5}
+	fmt.Printf("%s: %.1f C [%s]\n", reading.DeviceID, reading.Celsius, status(reading))
+}
+
+type Reading struct {
+	DeviceID string
+	Celsius  float64
+}
+
+func status(reading Reading) string {
+	if reading.Celsius >= 30 {
+		return "WARNING"
+	}
+	return "OK"
+}
+```
+
+</details>
+
+ก่อนเริ่ม ให้เปลี่ยนเนื้อหา `practics/main_test.go` เหลือเพียง `package main` เพราะ test จาก EP.24 เรียกฟังก์ชันของโปรแกรมเก่า เราจะเพิ่ม test ของโปรเจกต์นี้ใน EP.28
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เปลี่ยนเป็น sensor-02 ค่า 30 ให้ได้ WARNING
+2. ใช้ sensor-03 ค่า 29.96 แล้วอธิบายว่าทำไมแสดง 30.0 แต่เป็น OK
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+สถานะควรคำนวณจากค่าจริงหรือข้อความที่จัดรูปแบบแล้ว?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>
@@ -60,11 +112,11 @@ main.go สร้าง Reading แล้วเรียก status เพื่�
 
 - Reading เก็บข้อมูล status เลือกสถานะ main จัดรูปแบบและพิมพ์
 - ข้อกำหนด: แสดงทศนิยมหนึ่งตำแหน่ง และเตือนตั้งแต่ 30; การปัดตัวเลขตอนแสดงไม่เปลี่ยนค่าใน status
-- แยกสองไฟล์เพื่ออ่านหน้าที่ง่ายขึ้น เป็นทางเลือก ยังไม่มีความจำเป็นต้องแยกหลาย package
+- ตัวอย่างใน `lessons/` แยกสองไฟล์เพื่ออ่านหน้าที่ง่ายขึ้น เป็นทางเลือก งานฝึกใน `practics` รวมไว้ใน `main.go` ได้
 
 **ข้อผิดพลาดที่พบบ่อย**
 
-- รันเฉพาะ main.go แล้วไม่พบ Reading: ใช้ go run ./examples
+- เมื่อรันตัวอย่างใน `lessons/` ต้องใช้ `go run ./examples` เพื่อรวม model.go ส่วนโค้ดฝึกได้รวมไว้ใน `main.go` แล้ว
 - ใช้ข้อความที่ปัดเศษตัดสินสถานะ: ให้ตรวจค่าตัวเลขเดิมก่อนจัดรูปแบบ
 
 [เฉลย](solutions/README.md) · [ผลตรวจและข้อจำกัด](tests/RESULTS.md) · [เอกสาร Go](https://pkg.go.dev/fmt)

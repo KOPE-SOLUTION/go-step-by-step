@@ -1,90 +1,46 @@
-# ใช้ practics สำหรับฝึกโดยไม่ส่งงานฝึกเข้า Git
+# ฝึกในไฟล์เดียว
 
-ใช้ชื่อ **practics** ตามที่ขอ โฟลเดอร์นี้มีหน้าที่เหมือน `practice` ในหลักสูตร Java อย่าผสมสองชื่อในคำสั่งของหลักสูตร Go
+ใช้ `practics/main.go` เป็นสมุดฝึกเล่มเดียว ขึ้น EP ใหม่ก็เปลี่ยนโค้ดในไฟล์เดิม ส่วนตัวอย่างแต่ละตอนยังเปิดย้อนดูได้ใน `lessons/`
 
-| ตำแหน่ง | หน้าที่ | ตั้งใจเก็บใน Git |
-|---|---|---|
-| `docs/` | สารบัญ Playlist แผน และวิธีฝึก | ใช่ |
-| `lessons/` | บทเรียน ตัวอย่าง starter และเฉลย | ใช่ |
-| `projects/` | โปรเจกต์อ้างอิงเมื่อเริ่มทำจริง | ใช่ |
-| `practics/` | โค้ดที่ลองเอง ผลทดลอง และบันทึกส่วนตัว | ไม่ใช่ — ignore ทั้งโฟลเดอร์ |
+## เตรียมครั้งเดียว
 
-`lessons/01-hello-go/exercises/my-hello` เป็น starter ที่แชร์ให้คนอื่นได้ ส่วนไฟล์ที่คุณแก้ฝึกตั้งแต่นี้ให้ใช้ `practics/phase-01/ep01-hello-go/main.go` ซึ่งสร้างแยกไว้แล้ว งานในตำแหน่งเดิมไม่ได้ถูกลบหรือย้าย
+1. ใน VS Code คลิกขวาที่โฟลเดอร์ `Go` → **New Folder** ตั้งชื่อ `practics` ถ้ามีแล้วใช้โฟลเดอร์เดิม
+2. คลิกขวา `practics` → **New File** ตั้งชื่อ `main.go`
+3. พิมพ์โค้ดตั้งต้นตามบทที่กำลังเรียนในไฟล์นี้ แล้วบันทึกด้วย **Ctrl+S**
 
-## ใช้งานบนเครื่องนี้
+```text
+Go/
+  practics/
+    main.go
+```
 
-รันจากโฟลเดอร์ `practics/phase-01/ep01-hello-go`:
+คลิกขวา `practics` → **Open in Integrated Terminal** แล้วรันจากโฟลเดอร์นี้:
 
 ```shell
-go run .
+go run main.go
 ```
 
-`.` หมายถึงโฟลเดอร์ปัจจุบัน จึงรันโปรแกรมในพื้นที่ฝึก ผลเริ่มต้นคือ `Hello, Go!` ถ้าคุณแก้ข้อความแล้ว ผลก็เปลี่ยนตามที่เขียน เก็บการคาดเดาและผลจริงก่อนเปิดเฉลย
+ใช้ได้ทั้ง terminal ใน VS Code, PowerShell และ cmd โดย terminal ต้องอยู่ที่ `practics`
 
-พื้นที่ฝึกมี go.mod แยกจากตัวอย่าง แม้ลองทำผิดจน compile ไม่ผ่าน ก็ไม่ทำให้การตรวจต้นฉบับใน lessons ล้มตาม และไม่ต้องมี go.work หรือ module กลาง
+## เมื่อขึ้น EP ใหม่
 
-## เมื่อต้องสร้างพื้นที่ฝึกในเครื่องใหม่
+เปิด `main.go` เดิม เปลี่ยนเนื้อหาทั้งไฟล์เป็นโค้ดตั้งต้นของ EP ใหม่ แล้วทำโจทย์ในหัวข้อ **3. ฝึกเอง** ไม่ต้องสร้างโฟลเดอร์แยก EP หรือโฟลเดอร์ `examples`
 
-Git ไม่ส่ง `practics` ไปกับการ clone จึงเก็บวิธีสร้างไว้ในเอกสารนี้ หลังติดตั้ง Go แล้วเปิด PowerShell ที่ราก `Go` ใช้คำสั่งต่อไปนี้ครั้งเดียว **คำสั่งหยุดถ้าโฟลเดอร์มีอยู่ เพื่อไม่ทับงานเดิม**:
+หากอยากเก็บงานที่ปรับเอง ให้คัดลอกไว้ก่อนเขียนทับ เช่น `main-ep02.txt` ใช้นามสกุล `.txt` เพื่อไม่ให้ Go นำมารันรวม
 
-```powershell
-$practiceTarget = Join-Path (Get-Location).Path 'practics/phase-01/ep01-hello-go'
-if (Test-Path -LiteralPath $practiceTarget) {
-    throw 'Practice folder already exists. Open your existing work; do not overwrite it.'
-}
-New-Item -ItemType Directory -Path $practiceTarget -ErrorAction Stop | Out-Null
-Copy-Item -LiteralPath './lessons/01-hello-go/examples/hello/main.go' -Destination (Join-Path $practiceTarget 'main.go') -ErrorAction Stop
-Push-Location -LiteralPath $practiceTarget
-try {
-    go mod init example.com/go-course/practics/hello
-    if ($LASTEXITCODE -ne 0) { throw 'Could not create go.mod. Keep the error for diagnosis.' }
-    go run .
-} finally {
-    Pop-Location
-}
-```
+`practics/` ถูก Git ignore ผู้ที่ clone repository จึงสร้างพื้นที่นี้เอง งานฝึกจะไม่ติดไปกับการเพิ่มไฟล์เข้า Git ตามปกติ
 
-เครื่องนี้เตรียมโฟลเดอร์ให้แล้วจึง **ไม่ต้องรันชุดสร้างซ้ำ** คำสั่ง New-Item/Copy-Item ภายใน Documents เคยถูก Windows ปฏิเสธในการเตรียมเครื่อง หากเกิดซ้ำให้หยุดและส่ง error ไม่ต้องปิดระบบป้องกัน การสร้างผ่าน editor เป็นอีกทางเลือกที่ต้องตรวจว่าไม่ทับไฟล์เดิม
+<details>
+<summary>เมื่อถึงบทที่ต้องมีไฟล์เพิ่ม</summary>
 
-## Git ignore ทำอะไรและไม่ทำอะไร
+- **EP.1–20:** ใช้ `main.go` และ `go run main.go` ยังไม่ต้องมี `go.mod`
+- **EP.21:** เพิ่ม `sensor/reading.go` เพื่อเรียน package และใช้ `go mod init example.com/go-practice` ครั้งเดียวเพื่อสร้าง `go.mod` รายละเอียดอยู่ในบท
+- **EP.22 เป็นต้นไป:** ใช้ `go.mod` เดิม รันโปรแกรมด้วย `go run .` จาก `practics`
+- **EP.23–24 และ EP.28:** เพิ่มหรือเขียนทับ `main_test.go` แล้วรันทดสอบด้วย `go test .`
+- **EP.25:** เริ่มโปรเจกต์ใหม่ ให้เปลี่ยนเนื้อหา `main_test.go` เหลือเพียง `package main` เพราะ test ของ EP.24 ใช้กับโปรแกรมเก่า เราจะเขียน test ของโปรเจกต์ใน EP.28
 
-`Go/.gitignore` มีบรรทัด `/practics/` จึงไม่เพิ่มไฟล์ใหม่ในพื้นที่ฝึกด้วย `git add` ตามปกติ ไฟล์เหล่านี้จึงไม่อยู่ใน commit ที่จะ push ส่วนคำสั่ง push ส่ง commit ไม่ได้อ่านทุกไฟล์จากโฟลเดอร์โดยตรง
+ทั้งหมดใช้โฟลเดอร์ `practics` เดิม เพิ่มไฟล์เฉพาะเมื่อบทเรียนนั้นต้องใช้ ดู [คำสั่ง go run](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program), [การสร้าง module](https://go.dev/doc/tutorial/create-module) และ [ไฟล์ทดสอบ](https://go.dev/doc/tutorial/add-a-test)
 
-เริ่มใช้ Git repository จริงในโฟลเดอร์ Go เมื่อ 2026-09-20 บน branch `main` ยังไม่มี remote และไม่ได้ push งานออกไปภายนอก ผลตรวจครั้งก่อนใน repository ชั่วคราวเก็บไว้เป็นประวัติใน notes/structure-check.md
+</details>
 
-ตรวจได้จากราก Go:
-
-```powershell
-git check-ignore -v --no-index practics/phase-01/ep01-hello-go/main.go
-git ls-files -- practics/
-```
-
-คำสั่งแรกควรบอกกฎ `/practics/` คำสั่งที่สองควรไม่มีไฟล์ที่ถูกติดตาม หากเคยติดตามมาก่อน .gitignore จะไม่เอาไฟล์นั้นออกให้อัตโนมัติ ให้ตรวจสถานะก่อนจัดการ ไม่ลบไฟล์ฝึกเอง และไม่ใช้ `git add -f` กับพื้นที่นี้
-
-การ ignore ไม่ใช่การล็อกห้ามอัปโหลด: ยังบังคับเพิ่มไฟล์ได้ หรือส่งผ่าน ZIP ได้ จึงไม่ควรเก็บรหัสผ่าน/ข้อมูลจริงในงานฝึก หากจัดแพ็กเผยแพร่ในอนาคตให้เลือกจากไฟล์ที่ตั้งใจเผยแพร่และตรวจว่าไม่มี practics ปะปน
-
-อ้างอิง: [Git — gitignore](https://git-scm.com/docs/gitignore)
-
-## สร้างพื้นที่ฝึก EP2–28 ทีละตอน
-
-ใช้ PowerShell 7 ที่ติดตั้งในเครื่องนี้ จากรากโฟลเดอร์ Go รันตัวอย่างสำหรับ EP2:
-
-```powershell
-./scripts/new-practice.ps1 -Episode 2
-```
-
-จากนั้นรันจากโฟลเดอร์ `practics/phase-01/ep02-read-program`:
-
-```shell
-go run ./examples
-```
-
-เปลี่ยนหมายเลข Episode เป็นตอนที่กำลังเรียน สคริปต์บอกตำแหน่งโฟลเดอร์ที่สร้าง คัดลอก go.mod, examples และ package ย่อยที่จำเป็น เช่น sensor แต่ไม่คัดลอกเฉลย ถ้า target มีอยู่แล้วจะหยุดก่อนเขียน จึงให้เปิดงานเดิมแทนการรันสร้างซ้ำ
-
-ไฟล์ examples/main.go เป็นจุดเริ่มแก้ของทุก EP ใหม่ เมื่อมีไฟล์อื่นประกอบให้เก็บไว้ครบ รันทั้ง package ด้วย go run ./examples ไม่ใช่รัน main.go เพียงไฟล์เดียว ส่วน EP1 ที่เตรียมไว้เดิมยังใช้ go run . ตามคำสั่งก่อนหน้า
-
-หากเพิ่งสร้าง EP1 ด้วยสคริปต์ใหม่นี้ จะได้ examples/hello และใช้ go run ./examples/hello ตามที่สคริปต์บอก โฟลเดอร์ EP1 ที่มีอยู่จะไม่ถูกแปลงหรือเขียนทับ
-
-ถ้าระบบไม่ยอมรันสคริปต์หรือเขียนโฟลเดอร์ ให้เก็บ error ไม่ต้องเปลี่ยนการตั้งค่าความปลอดภัย ใช้ editor/ตัวจัดการไฟล์สร้างโฟลเดอร์ชื่อใหม่ใน practics แล้วคัดลอก go.mod กับ examples (และ sensor สำหรับ EP21–22) ด้วยตนเองโดยตรวจว่าไม่ทับงานเดิม
-
-รายละเอียดการตรวจสคริปต์และข้อจำกัดของเครื่อง: [ผลตรวจ Phase 1](../notes/phase-01-results.md)
+[กลับไปฝึก EP.2](../lessons/phase-01/ep02-read-program/README.md#practice)

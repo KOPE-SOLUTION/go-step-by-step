@@ -43,9 +43,77 @@ ERROR: temperature outside simulated range
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: ถ้าชื่อว่างและค่า -1 โปรแกรมแจ้ง error ใด เพราะอะไร?
+ใช้ **`practics/main.go` ไฟล์เดิม** และ `go.mod` จาก EP.21 เขียนทับ `main.go` ด้วยโค้ดตั้งต้นที่รวมไว้ด้านล่าง แล้วทำโจทย์
+
+<details>
+<summary>โค้ดตั้งต้นสำหรับ main.go</summary>
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	reading := Reading{DeviceID: "sensor-01", Celsius: -1}
+	err := validate(reading)
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		return
+	}
+	fmt.Printf("%s: %.1f C [%s]\n", reading.DeviceID, reading.Celsius, status(reading))
+}
+
+type Reading struct {
+	DeviceID string
+	Celsius  float64
+}
+
+func status(reading Reading) string {
+	if reading.Celsius >= 30 {
+		return "WARNING"
+	}
+	return "OK"
+}
+
+func validate(reading Reading) error {
+	if reading.DeviceID == "" {
+		return errors.New("device ID is empty")
+	}
+	if reading.Celsius < 0 || reading.Celsius > 100 {
+		return errors.New("temperature outside simulated range")
+	}
+	return nil
+}
+```
+
+</details>
+
+**แก้ `main.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. ใช้ชื่อว่างกับค่า 25 ต้องรายงาน device ID is empty
+2. ใช้ sensor-01 ค่า 100 ต้องได้รายงาน WARNING
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+ถ้าชื่อว่างและค่า -1 โปรแกรมแจ้ง error ใด เพราะอะไร?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>

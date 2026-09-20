@@ -58,9 +58,53 @@ true
 
 </details>
 
+<a id="practice"></a>
+
 ## 3. ฝึกเอง
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: test ผ่านหนึ่งกรณีพิสูจน์ว่าฟังก์ชันถูกทุกค่าหรือไม่?
+ใช้ **`practics/main.go` ไฟล์เดิม** และ `go.mod` จาก EP.21 เขียนทับ `main.go` ด้วยโค้ดตั้งต้นที่รวมไว้ด้านล่าง แล้วทำโจทย์
+
+<details>
+<summary>โค้ดตั้งต้นสำหรับ main.go</summary>
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(isWarning(30))
+}
+
+func isWarning(celsius float64) bool {
+	return celsius >= 30
+}
+```
+
+</details>
+
+สร้าง `practics/main_test.go` แล้วใส่โค้ดทั้งไฟล์จาก [ตัวอย่าง test](examples/threshold_test.go) ไฟล์ทดสอบต้องลงท้าย `_test.go` จึงแยกจาก `main.go`
+
+**แก้ `main.go` และ `main_test.go` ในโฟลเดอร์ฝึก** ทีละข้อ:
+
+1. เพิ่ม test ใน `main_test.go` สำหรับค่า `29.9` ซึ่งต้องได้ `false` โดยเก็บ test เดิมไว้
+2. เพิ่ม test สำหรับค่า `30.1` ซึ่งต้องได้ `true` จากนั้นลองเปลี่ยน `>=` เป็น `>` ใน `main.go` ดูว่า test ใดไม่ผ่าน แล้วคืนโค้ดเดิม
+
+บันทึกไฟล์ (Ctrl+S) แล้วรันจาก **`practics`**:
+
+```shell
+go run .
+go test .
+```
+
+<details>
+<summary>คำถามทบทวนหลังทำโจทย์</summary>
+
+test ผ่านหนึ่งกรณีพิสูจน์ว่าฟังก์ชันถูกทุกค่าหรือไม่?
+
+[ดูเฉลยหลังลองทำ](solutions/README.md)
+
+</details>
 
 <details>
 <summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>
@@ -76,7 +120,7 @@ unit test ตรวจหน่วยงานเล็ก เช่น ฟั�
 **ข้อผิดพลาดที่พบบ่อย**
 
 - ตั้งชื่อไฟล์ threshold-test.go: ต้องลงท้าย _test.go
-- ใช้ go run ./examples/main.go: จะไม่รวม threshold.go ให้รันทั้ง package ด้วย ./examples
+- ในตัวอย่าง `lessons/` การรันเฉพาะ main.go จะไม่รวม threshold.go ให้ใช้ `go run ./examples` ส่วนโค้ดฝึกได้รวมฟังก์ชันไว้ใน `main.go` แล้ว
 
 [เฉลย](solutions/README.md) · [ผลตรวจและข้อจำกัด](tests/RESULTS.md) · [เอกสาร Go](https://go.dev/doc/tutorial/add-a-test)
 

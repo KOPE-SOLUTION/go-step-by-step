@@ -19,6 +19,6 @@ Gateway simulator is starting.
 
 เปลี่ยน `Println` เป็น `println` ในไฟล์ฝึก แล้วรัน อ่าน error ก่อนแก้กลับให้ถูกต้อง
 
-รันจากพื้นที่ฝึก EP1 เดิมด้วย `go run .` หากสร้างด้วยสคริปต์ใหม่ ให้ใช้ `go run ./examples/hello` ตามตำแหน่งที่สคริปต์แจ้ง
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดจาก [ตัวอย่าง Hello Go](../examples/hello/main.go) แล้วทำทีละข้อ รันด้วย `go run main.go` จาก `practics`
 
 [เฉลย](../solutions/README.md) · [กลับบทเรียน](../README.md)
