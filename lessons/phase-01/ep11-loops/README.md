@@ -24,10 +24,9 @@ func main() {
 
 **ก่อนรัน:** หลังพิมพ์ sample 3 แล้ว i เพิ่มเป็น 4 จะพิมพ์อีกไหม?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep11-loops`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep11-loops'
+```shell
 go run ./examples
 ```
 

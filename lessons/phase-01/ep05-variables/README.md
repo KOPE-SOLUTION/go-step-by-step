@@ -25,10 +25,9 @@ func main() {
 
 **ก่อนรัน:** สอง Println จะเห็นชื่อเดียวกันหรือไม่ เพราะอะไร?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep05-variables`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep05-variables'
+```shell
 go run ./examples
 ```
 

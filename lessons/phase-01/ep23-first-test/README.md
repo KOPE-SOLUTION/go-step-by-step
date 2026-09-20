@@ -38,10 +38,9 @@ func TestIsWarning(t *testing.T) {
 
 **ก่อนรัน:** เปลี่ยน return celsius >= 30 เป็น > 30 แล้ว test ค่า 30 ควรผ่านหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep23-first-test`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep23-first-test'
+```shell
 go run ./examples
 go test -v ./examples
 ```

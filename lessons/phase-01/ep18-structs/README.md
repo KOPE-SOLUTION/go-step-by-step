@@ -28,10 +28,9 @@ func main() {
 
 **ก่อนรัน:** ถ้าระบุเฉพาะ DeviceID ช่อง Celsius จะมีค่าอะไร?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep18-structs`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep18-structs'
+```shell
 go run ./examples
 ```
 

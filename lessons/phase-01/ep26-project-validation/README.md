@@ -26,10 +26,9 @@ func validate(reading Reading) error {
 
 **ก่อนรัน:** ข้อมูลผิดจะได้รายงานสถานะ OK ตามมาไหม?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep26-project-validation`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep26-project-validation'
+```shell
 go run ./examples
 ```
 

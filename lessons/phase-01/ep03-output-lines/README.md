@@ -24,10 +24,9 @@ func main() {
 
 **ก่อนรัน:** เรียกฟังก์ชันพิมพ์ 3 ครั้ง จะได้ 3 บรรทัดเสมอหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep03-output-lines`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep03-output-lines'
+```shell
 go run ./examples
 ```
 

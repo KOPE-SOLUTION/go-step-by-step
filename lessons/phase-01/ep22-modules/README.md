@@ -20,10 +20,9 @@ go 1.22.0
 
 **ก่อนรัน:** import ที่เริ่ม example.com ในบทนี้ต้องต่ออินเทอร์เน็ตหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep22-modules`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep22-modules'
+```shell
 go run ./examples
 ```
 
@@ -55,7 +54,7 @@ go.mod คือไฟล์ประกาศชื่อ module และ Go v
 
 **ข้อผิดพลาดที่พบบ่อย**
 
-- รัน go run ./examples จาก Go/ ซึ่งไม่มี go.mod: cd เข้าโฟลเดอร์ EP ก่อน
+- รัน go run ./examples จาก Go/ ซึ่งไม่มี go.mod: เปิด terminal ที่โฟลเดอร์ EP ก่อน
 - แก้ module path แล้วไม่แก้ import ภายใน: ชื่อสองฝั่งต้องตรงกัน; ไม่ต้องใช้ go get เพื่อแก้การสะกด path ในบทนี้
 
 [เฉลย](solutions/README.md) · [ผลตรวจและข้อจำกัด](tests/RESULTS.md) · [เอกสาร Go](https://go.dev/doc/modules/managing-source)

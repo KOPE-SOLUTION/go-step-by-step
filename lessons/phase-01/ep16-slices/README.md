@@ -25,10 +25,9 @@ func main() {
 
 **ก่อนรัน:** append แล้ว len เปลี่ยนเท่าไร และทำไมต้องรับค่าคืนกลับ?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep16-slices`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep16-slices'
+```shell
 go run ./examples
 ```
 

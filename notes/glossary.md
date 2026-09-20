@@ -5,8 +5,8 @@
 | Go | ภาษาโปรแกรม และชื่อชุดเครื่องมือที่ใช้คำสั่ง `go` |
 | Source code | คำสั่งที่มนุษย์เขียน เช่นไฟล์ `main.go` |
 | Compiler / compile | เครื่องมือ/การแปลง source code พร้อมตรวจความถูกต้องเพื่อสร้างโปรแกรม |
-| Terminal | หน้าต่างรับคำสั่ง เช่น PowerShell |
-| Current directory | ตำแหน่งที่ terminal ใช้งานอยู่ ตรวจด้วย `Get-Location` |
+| Terminal | หน้าต่างรับคำสั่ง เช่น terminal ใน VS Code ใช้ PowerShell หรือ cmd ได้ |
+| Current directory | โฟลเดอร์ที่ terminal ใช้งานอยู่ คำสั่งที่ใช้เส้นทางสัมพัทธ์จะอ้างอิงจากตำแหน่งนี้ |
 | PATH | รายการโฟลเดอร์ที่ระบบใช้ค้นหาคำสั่ง เช่น go.exe |
 | Function | ชุดคำสั่งที่มีชื่อ เช่น main และ Println |
 | Package | กลุ่มไฟล์ Go ในโฟลเดอร์เดียวกันที่ทำงานร่วมกัน |

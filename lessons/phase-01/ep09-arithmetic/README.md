@@ -26,10 +26,9 @@ func main() {
 
 **ก่อนรัน:** float64(total / count) จะยังได้ 2.5 หรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep09-arithmetic`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep09-arithmetic'
+```shell
 go run ./examples
 ```
 

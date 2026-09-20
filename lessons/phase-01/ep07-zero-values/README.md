@@ -29,10 +29,9 @@ func main() {
 
 **ก่อนรัน:** ถ้าชื่อว่าง บรรทัดสุดท้ายจะหายไปหรือเห็น []?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep07-zero-values`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep07-zero-values'
+```shell
 go run ./examples
 ```
 

@@ -13,10 +13,9 @@
 
 ## ใช้งานบนเครื่องนี้
 
-เปิด PowerShell แล้วเลือกโฟลเดอร์ฝึก:
+รันจากโฟลเดอร์ `practics/phase-01/ep01-hello-go`:
 
-```powershell
-Set-Location -LiteralPath 'C:\Users\kopes\Documents\L\Go\practics\phase-01\ep01-hello-go'
+```shell
 go run .
 ```
 
@@ -72,7 +71,11 @@ git ls-files -- practics/
 
 ```powershell
 ./scripts/new-practice.ps1 -Episode 2
-Set-Location -LiteralPath './practics/phase-01/ep02-read-program'
+```
+
+จากนั้นรันจากโฟลเดอร์ `practics/phase-01/ep02-read-program`:
+
+```shell
 go run ./examples
 ```
 

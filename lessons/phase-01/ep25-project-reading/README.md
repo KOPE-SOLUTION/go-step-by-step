@@ -30,10 +30,9 @@ func status(reading Reading) string {
 
 **ก่อนรัน:** ตั้ง Celsius เป็น 30 แล้วส่วนใดของบรรทัดจะเปลี่ยน?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep25-project-reading`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep25-project-reading'
+```shell
 go run ./examples
 ```
 

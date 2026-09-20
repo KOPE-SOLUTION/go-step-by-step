@@ -28,10 +28,9 @@ func main() {
 
 **ก่อนรัน:** ถ้าฟังก์ชันรับ float64 ธรรมดาแล้วแก้ภายใน ค่า temperature ภายนอกจะเปลี่ยนไหม?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep20-pointers`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep20-pointers'
+```shell
 go run ./examples
 ```
 

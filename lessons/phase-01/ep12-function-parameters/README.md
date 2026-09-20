@@ -27,10 +27,9 @@ func main() {
 
 **ก่อนรัน:** ประกาศ showDevice ก่อน main แล้วมันจะพิมพ์เองก่อนถูกเรียกหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep12-function-parameters`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep12-function-parameters'
+```shell
 go run ./examples
 ```
 

@@ -22,10 +22,9 @@ func main() {
 
 **ก่อนรัน:** ถ้าเขียน fmt.println โปรแกรมจะพิมพ์ก่อนแล้วค่อยแจ้ง error หรือยังไม่เริ่มทำงาน?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep04-read-errors`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep04-read-errors'
+```shell
 go run ./examples
 ```
 

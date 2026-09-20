@@ -38,10 +38,9 @@ func TestIsWarningBoundaries(t *testing.T) {
 
 **ก่อนรัน:** ถ้าพลาดใช้ > แทน >= แถวไหนจะทำให้ test ไม่ผ่าน?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep24-boundary-tests`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep24-boundary-tests'
+```shell
 go run ./examples
 go test -v ./examples
 ```

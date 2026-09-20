@@ -29,10 +29,9 @@ func main() {
 
 **ก่อนรัน:** 001 ที่เก็บเป็น string จะมีศูนย์นำหน้าในผลหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep06-data-types`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep06-data-types'
+```shell
 go run ./examples
 ```
 

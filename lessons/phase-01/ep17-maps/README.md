@@ -26,10 +26,9 @@ func main() {
 
 **ก่อนรัน:** ค่าที่ค้นได้เป็น 0 ทั้งคู่ หมายความว่าพบอุปกรณ์ทั้งคู่หรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep17-maps`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep17-maps'
+```shell
 go run ./examples
 ```
 

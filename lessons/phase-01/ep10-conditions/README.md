@@ -27,10 +27,9 @@ func main() {
 
 **ก่อนรัน:** ค่า 30 พอดีจะเข้า WARNING หรือ OK เพราะอะไร?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep10-conditions`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep10-conditions'
+```shell
 go run ./examples
 ```
 

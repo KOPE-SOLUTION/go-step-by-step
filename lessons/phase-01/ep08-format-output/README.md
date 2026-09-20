@@ -25,10 +25,9 @@ func main() {
 
 **ก่อนรัน:** 27.56 จะแสดงเป็น 27.5 หรือ 27.6 เมื่อใช้ %.1f?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep08-format-output`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep08-format-output'
+```shell
 go run ./examples
 ```
 

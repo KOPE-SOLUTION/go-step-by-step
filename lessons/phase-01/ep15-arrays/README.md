@@ -26,10 +26,9 @@ func main() {
 
 **ก่อนรัน:** array สามช่องมี index สูงสุดเท่าไร?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep15-arrays`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep15-arrays'
+```shell
 go run ./examples
 ```
 

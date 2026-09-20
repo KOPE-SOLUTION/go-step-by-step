@@ -37,10 +37,9 @@ func main() {
 
 **ก่อนรัน:** ถ้าส่ง -1 จะพิมพ์ Temperature: 0 ต่อจาก error หรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep14-errors`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep14-errors'
+```shell
 go run ./examples
 ```
 

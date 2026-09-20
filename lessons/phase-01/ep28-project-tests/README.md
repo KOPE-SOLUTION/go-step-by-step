@@ -23,10 +23,9 @@ func TestBuildReportEmpty(t *testing.T) {
 
 **ก่อนรัน:** ถ้า buildReport คืนข้อความหนึ่งบรรทัดเมื่อไม่มีข้อมูล test นี้ควรผ่านหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep28-project-tests`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep28-project-tests'
+```shell
 go run ./examples
 go test -v ./examples
 ```

@@ -36,10 +36,9 @@ func IsWarning(celsius float64) bool {
 
 **ก่อนรัน:** ทำไมใช้ sensor.IsWarning แทนเรียก IsWarning ตรง ๆ?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep21-packages`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep21-packages'
+```shell
 go run ./examples
 ```
 

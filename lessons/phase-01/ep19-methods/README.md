@@ -31,10 +31,9 @@ func main() {
 
 **ก่อนรัน:** r ใน method มาจากตัวแปรใดตอนเรียก reading.IsWarning()?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep19-methods`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep19-methods'
+```shell
 go run ./examples
 ```
 

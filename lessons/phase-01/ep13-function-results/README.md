@@ -27,10 +27,9 @@ func main() {
 
 **ก่อนรัน:** ถ้าเรียกฟังก์ชันแต่ไม่ใช้ fmt จะเห็นคำตอบใน terminal เองไหม?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep13-function-results`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep13-function-results'
+```shell
 go run ./examples
 ```
 

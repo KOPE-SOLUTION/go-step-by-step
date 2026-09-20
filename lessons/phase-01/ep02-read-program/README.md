@@ -22,10 +22,9 @@ func main() {
 
 **ก่อนรัน:** เปลี่ยนข้อความในเครื่องหมายคำพูด แล้วจะต้องเปลี่ยนชื่อ main ตามด้วยหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep02-read-program`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep02-read-program'
+```shell
 go run ./examples
 ```
 

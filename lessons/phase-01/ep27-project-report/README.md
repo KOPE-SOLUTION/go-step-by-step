@@ -30,10 +30,9 @@ func buildReport(readings []Reading) []string {
 
 **ก่อนรัน:** หลังรายการ sensor-03 ผิด sensor-04 จะยังได้รายงานหรือไม่?
 
-จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
+รันจากโฟลเดอร์ `lessons/phase-01/ep27-project-report`:
 
-```powershell
-Set-Location -LiteralPath './lessons/phase-01/ep27-project-report'
+```shell
 go run ./examples
 ```
 
