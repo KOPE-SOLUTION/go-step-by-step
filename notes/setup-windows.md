@@ -2,7 +2,7 @@
 
 **อัปเดต 2026-09-19: เครื่องนี้ติดตั้ง Go 1.27.1 แล้ว ไม่ต้องติดตั้งซ้ำ** ใช้ ZIP ทางการติดตั้งเฉพาะบัญชีที่ `%LOCALAPPDATA%\Programs\Go-1.27.1\go` และเพิ่มโฟลเดอร์ bin ใน User PATH เนื่องจาก MSI ต้องการสิทธิ์ติดตั้งสำหรับทุกบัญชี ดู [บันทึกการติดตั้งจริง](environment.md)
 
-ให้เปิด PowerShell ใหม่จาก Start แล้วลอง `go version` หากเปิดผ่าน editor ที่เปิดค้างอยู่ก่อนติดตั้ง อาจต้องเปิด editor ใหม่ด้วย ขั้นตอน MSI ด้านล่างเก็บไว้สำหรับเครื่องใหม่ที่ยังไม่ได้ติดตั้ง ไม่ใช่สิ่งที่ต้องทำซ้ำใน EP.1
+ให้เปิด terminal ใหม่ ใช้ PowerShell หรือ Command Prompt (cmd) แล้วลอง `go version` หากเปิดผ่าน editor ที่เปิดค้างอยู่ก่อนติดตั้ง อาจต้องเปิด editor ใหม่ด้วย ขั้นตอน MSI ด้านล่างเก็บไว้สำหรับเครื่องใหม่ที่ยังไม่ได้ติดตั้ง ไม่ใช่สิ่งที่ต้องทำซ้ำใน EP.1
 
 ## ก่อนติดตั้ง
 
@@ -12,12 +12,11 @@
 2. เลือก stable สำหรับ **Windows / amd64 / .msi** เพราะเครื่องนี้เป็น X64 (`amd64` ใช้ได้กับ CPU x64 ทั้ง Intel และ AMD) ไม่เลือกรุ่น beta/rc หรือ ARM64
 3. หน้าที่ตรวจวันที่ 2026-09-17 แสดง `go1.27.1.windows-amd64.msi` เป็น featured download หากทำในวันอื่นให้ยึดรุ่น stable ที่ทางการแสดงขณะนั้น
 4. เปิด MSI แล้วทำตามหน้าจอ อ่านตำแหน่งติดตั้งและรายการเปลี่ยนแปลงก่อนยืนยัน ใช้ค่าปริยายได้ ไม่ต้องติดตั้ง Docker หรือ broker ในบทนี้
-5. ปิดแล้วเปิด PowerShell ใหม่ ถ้าใช้ terminal ภายใน editor ให้เปิด editor ใหม่เมื่อยังไม่เห็น PATH ล่าสุด
+5. ปิดแล้วเปิด terminal ใหม่ ถ้าใช้ terminal ภายใน editor ให้เปิด editor ใหม่เมื่อยังไม่เห็น PATH ล่าสุด
 6. ตรวจด้วยคำสั่งด้านล่าง ไม่ต้องเปลี่ยน execution policy
 
-```powershell
+```shell
 go version
-Get-Command go
 git --version
 ```
 
@@ -27,14 +26,14 @@ git --version
 
 ## ไปยังบทที่ 1
 
-```powershell
-Set-Location -LiteralPath 'C:\Users\kopes\Documents\L\Go\lessons\01-hello-go'
-Get-Location
+เปิด terminal ที่โฟลเดอร์ `lessons/01-hello-go` ใน VS Code ทำได้โดยคลิกขวาโฟลเดอร์นี้ในแถบ Explorer แล้วเลือก **Open in Integrated Terminal** ใช้ PowerShell หรือ Command Prompt (cmd) ได้ทั้งคู่
+
+```shell
 go version
 go run ./examples/hello
 ```
 
-ผลที่คาดหวัง (ยังไม่ใช่ผลรันจริงบนเครื่องนี้):
+ผลที่คาดหวัง:
 
 ```text
 Hello, Go!

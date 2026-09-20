@@ -2,21 +2,25 @@
 
 ## 1. เครื่องมือพร้อมหรือยัง
 
-```powershell
-Get-Command go -ErrorAction SilentlyContinue
+ใช้ PowerShell หรือ Command Prompt (cmd) แล้วลอง:
+
+```shell
 go version
 ```
 
-ถ้าไม่พบคำสั่ง ให้ตรวจว่าติดตั้งหรือยัง และเปิด PowerShell ใหม่แล้วหรือยัง ตาม [setup-windows.md](setup-windows.md) ควรตรวจสาเหตุให้ชัดเจนก่อนแก้ไข PATH หรือ GOROOT
+ถ้าไม่พบคำสั่ง ให้ตรวจว่าติดตั้งหรือยัง และเปิด terminal ใหม่แล้วหรือยัง หากใช้ VS Code ที่เปิดค้างไว้ก่อนติดตั้ง Go ให้เปิด VS Code ใหม่ด้วย ดู [setup-windows.md](setup-windows.md) ก่อนแก้ไข PATH หรือ GOROOT
 
 ## 2. อยู่โฟลเดอร์ไหน และรันอะไร
 
-```powershell
-Get-Location
-Get-ChildItem
+ดูเส้นทางหน้าคำสั่งใน terminal แล้วแสดงรายการไฟล์ด้วยคำสั่งนี้ ใช้ได้ทั้ง PowerShell และ cmd:
+
+```shell
+dir
 ```
 
-จากรากบท 1 จะเห็น `go.mod` กับ `examples` ใช้ `go run ./examples/hello` ส่วนงานที่แก้ฝึกเองใช้โฟลเดอร์ `Go/practics/phase-01/ep01-hello-go` และสั่ง `go run .` จากในโฟลเดอร์นั้น ดู `docs/PRACTICE.md` การรันราก `Go` หรือรากบทด้วย `go run .` จะไม่ใช่ตำแหน่งของโปรแกรมตัวอย่าง
+ที่โฟลเดอร์ `lessons/01-hello-go` จะเห็น `go.mod` กับ `examples` ใช้ `go run ./examples/hello` ถ้าอยู่ผิดโฟลเดอร์ ใน VS Code ให้คลิกขวาโฟลเดอร์บทเรียนแล้วเลือก **Open in Integrated Terminal**
+
+ส่วนงานที่แก้ฝึกเองใช้โฟลเดอร์ `Go/practics/phase-01/ep01-hello-go` และสั่ง `go run .` จากในโฟลเดอร์นั้น ดู [วิธีฝึก](../docs/PRACTICE.md) การรันราก `Go` หรือรากบทด้วย `go run .` จะไม่ใช่ตำแหน่งของโปรแกรมตัวอย่าง
 
 ## 3. อ่าน compiler error
 
