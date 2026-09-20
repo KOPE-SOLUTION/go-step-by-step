@@ -1,0 +1,920 @@
+[
+  {
+    "episode": 1,
+    "path": "lessons/01-hello-go",
+    "practice": "ep01-hello-go",
+    "entry": "examples/hello",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples/hello",
+        "expected": [
+          "Hello, Go!"
+        ]
+      },
+      {
+        "path": "./solutions/01-greeting",
+        "expected": [
+          "Hello, learner!"
+        ]
+      },
+      {
+        "path": "./solutions/02-two-lines",
+        "expected": [
+          "Hello, learner!",
+          "Gateway simulator is starting."
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 2,
+    "path": "lessons/phase-01/ep02-read-program",
+    "practice": "ep02-read-program",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "Hello, learner!"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "Device simulator"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "สวัสดี Go"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 3,
+    "path": "lessons/phase-01/ep03-output-lines",
+    "practice": "ep03-output-lines",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "Device: sensor-01",
+          "READY"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "READY",
+          "Device: sensor-01"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "Device: sensor-01",
+          "STOPPED"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 4,
+    "path": "lessons/phase-01/ep04-read-errors",
+    "practice": "ep04-read-errors",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "Check complete"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "Check complete"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "Fixed"
+        ]
+      }
+    ],
+    "unit": false,
+    "negative": {
+      "file": "tests/lowercase.go.txt",
+      "contains": "undefined: fmt.println"
+    }
+  },
+  {
+    "episode": 5,
+    "path": "lessons/phase-01/ep05-variables",
+    "practice": "ep05-variables",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "sensor-01",
+          "sensor-02"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "sensor-03",
+          "sensor-04"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "deviceName",
+          "sensor-01"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 6,
+    "path": "lessons/phase-01/ep06-data-types",
+    "practice": "ep06-data-types",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "001",
+          "3",
+          "27.5",
+          "true"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "007",
+          "2",
+          "30.5",
+          "false"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "5"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 7,
+    "path": "lessons/phase-01/ep07-zero-values",
+    "practice": "ep07-zero-values",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "0",
+          "0",
+          "false",
+          "[]"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "[]",
+          "[sensor-01]"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "false",
+          "true"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 8,
+    "path": "lessons/phase-01/ep08-format-output",
+    "practice": "ep08-format-output",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "sensor-01: 27.6 C, online=true"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "sensor-02: 28.25 C"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "name=\"\" count=3"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 9,
+    "path": "lessons/phase-01/ep09-arithmetic",
+    "practice": "ep09-arithmetic",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "2",
+          "2.5"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "3.5"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "77.0"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 10,
+    "path": "lessons/phase-01/ep10-conditions",
+    "practice": "ep10-conditions",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "WARNING"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "OK"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "EMPTY"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 11,
+    "path": "lessons/phase-01/ep11-loops",
+    "practice": "ep11-loops",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "sample 1",
+          "sample 2",
+          "sample 3"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "sample 1",
+          "sample 2",
+          "sample 3",
+          "sample 4",
+          "sample 5"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "DONE"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 12,
+    "path": "lessons/phase-01/ep12-function-parameters",
+    "practice": "ep12-function-parameters",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "Device: sensor-01",
+          "Device: sensor-02"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "Device: gateway-01"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "Count: 3"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 13,
+    "path": "lessons/phase-01/ep13-function-results",
+    "practice": "ep13-function-results",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "77.0 F"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "32.0 F"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "true"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 14,
+    "path": "lessons/phase-01/ep14-errors",
+    "practice": "ep14-errors",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "Temperature: 27.5"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "ERROR: temperature outside simulated range"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "Temperature: 100"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 15,
+    "path": "lessons/phase-01/ep15-arrays",
+    "practice": "ep15-arrays",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "count: 3",
+          "0 27.5",
+          "1 28",
+          "2 30"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "25"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "[1 2]",
+          "[9 2]"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 16,
+    "path": "lessons/phase-01/ep16-slices",
+    "practice": "ep16-slices",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "[27.5 28 30]",
+          "count: 3"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "[sensor-01]",
+          "1"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "[9 2 3]"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 17,
+    "path": "lessons/phase-01/ep17-maps",
+    "practice": "ep17-maps",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "0 true",
+          "0 false"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "28.5 true"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "0 false"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 18,
+    "path": "lessons/phase-01/ep18-structs",
+    "practice": "ep18-structs",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "sensor-01 27.5"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "sensor-02 0"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "25 30"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 19,
+    "path": "lessons/phase-01/ep19-methods",
+    "practice": "ep19-methods",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "true"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "false"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "77.0 F"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 20,
+    "path": "lessons/phase-01/ep20-pointers",
+    "practice": "ep20-pointers",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "25.5"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "19.5"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "6"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 21,
+    "path": "lessons/phase-01/ep21-packages",
+    "practice": "ep21-packages",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples",
+      "sensor"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "true"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "false"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "true",
+          "true"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 22,
+    "path": "lessons/phase-01/ep22-modules",
+    "practice": "ep22-modules",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples",
+      "sensor"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "true"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "false"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "true"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 23,
+    "path": "lessons/phase-01/ep23-first-test",
+    "practice": "ep23-first-test",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "true"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "false"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "true"
+        ]
+      }
+    ],
+    "unit": true
+  },
+  {
+    "episode": 24,
+    "path": "lessons/phase-01/ep24-boundary-tests",
+    "practice": "ep24-boundary-tests",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "false"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "false"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "true"
+        ]
+      }
+    ],
+    "unit": true
+  },
+  {
+    "episode": 25,
+    "path": "lessons/phase-01/ep25-project-reading",
+    "practice": "ep25-project-reading",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "sensor-01: 27.5 C [OK]"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "sensor-02: 30.0 C [WARNING]"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "sensor-03: 30.0 C [OK]"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 26,
+    "path": "lessons/phase-01/ep26-project-validation",
+    "practice": "ep26-project-validation",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "ERROR: temperature outside simulated range"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "ERROR: device ID is empty"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "sensor-01: 100.0 C [WARNING]"
+        ]
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 27,
+    "path": "lessons/phase-01/ep27-project-report",
+    "practice": "ep27-project-report",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "sensor-01: 27.5 C [OK]",
+          "sensor-02: 30.0 C [WARNING]",
+          "sensor-03: ERROR: temperature outside simulated range",
+          "sensor-04: 28.0 C [OK]"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          "sensor-01: 27.5 C [OK]",
+          "sensor-02: 30.0 C [WARNING]",
+          "sensor-03: ERROR: temperature outside simulated range",
+          "sensor-04: 28.0 C [OK]",
+          "sensor-05: 31.0 C [WARNING]"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": []
+      }
+    ],
+    "unit": false
+  },
+  {
+    "episode": 28,
+    "path": "lessons/phase-01/ep28-project-tests",
+    "practice": "ep28-project-tests",
+    "entry": "examples",
+    "copies": [
+      "go.mod",
+      "examples"
+    ],
+    "cases": [
+      {
+        "path": "./examples",
+        "expected": [
+          "sensor-01: 27.5 C [OK]",
+          "sensor-02: 30.0 C [WARNING]",
+          "sensor-03: ERROR: temperature outside simulated range",
+          "sensor-04: 28.0 C [OK]"
+        ]
+      },
+      {
+        "path": "./solutions/01",
+        "expected": [
+          ": ERROR: device ID is empty"
+        ]
+      },
+      {
+        "path": "./solutions/02",
+        "expected": [
+          "bad-01: ERROR: temperature outside simulated range",
+          "bad-02: ERROR: temperature outside simulated range",
+          "good: 25.0 C [OK]"
+        ]
+      }
+    ],
+    "unit": true
+  }
+]

@@ -1,0 +1,17 @@
+# Personal exercises: never part of the normal teaching-source commit.
+/practics/
+
+# Generated local outputs; keep Go source, go.mod and go.sum trackable.
+/work/
+**/work/
+**/bin/
+**/dist/
+*.exe
+*.test
+*.prof
+coverage.out
+
+# Local configuration; sanitized templates remain trackable.
+.env
+.env.*
+!.env.example
