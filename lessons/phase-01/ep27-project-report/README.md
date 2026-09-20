@@ -1,79 +1,14 @@
 # EP.27 — โปรเจกต์สรุป ตอนที่ 3 — รายงานหลายรายการ
 
-Phase 1 — Go Basic • [สารบัญ](../../../docs/playlist-01-go-basic/README.md)
+**เป้าหมาย:** ให้รายการผิดหนึ่งรายการไม่หยุดการประมวลผลรายการถัดไป
 
-## เป้าหมายและสิ่งที่ควรรู้ก่อน
+## 1. อ่านโค้ด
 
-ให้รายการผิดหนึ่งรายการไม่หยุดการประมวลผลรายการถัดไป ก่อนเริ่มควรเรียน EP.26 และอธิบายตัวอย่างในตอนนั้นด้วยคำของตนเองได้ สามารถเปิดตัวอย่างประกอบระหว่างฝึกได้
+`fmt.Sprintf` จัดรูปแบบแล้วคืนข้อความโดยไม่พิมพ์ ส่วน `continue` ข้ามรอบที่ข้อมูลผิดแล้วทำรายการถัดไป
 
-เรียนตามลำดับ: ทำความเข้าใจ → คาดเดาผล → รันโปรแกรม → ลองแก้ทีละจุด หากต้องการทบทวน เปิด [ตอนก่อนหน้า](../ep26-project-validation/README.md)
-
-## แนวคิดและคำใหม่
-
-เรามีแบบฟอร์มหลายใบ ถ้าใบหนึ่งผิด ให้บันทึกปัญหาของใบนั้นแล้วตรวจใบถัดไป รายงานยังรักษาลำดับข้อมูลเข้า
-
-continue ข้ามส่วนที่เหลือของรอบปัจจุบันแล้วไปตรวจรอบต่อไป; fmt.Sprintf จัดรูปแบบแล้วคืน string โดยไม่พิมพ์; buildReport คืน slice ของบรรทัดรายงาน; _ ทิ้ง index ที่ไม่ได้ใช้
-
-## ลองคาดเดาผลลัพธ์ก่อนรัน
-
-หลังรายการ sensor-03 ผิด sensor-04 จะยังได้รายงานหรือไม่?
-
-จดผลที่คาดเดาและเหตุผลสั้น ๆ ก่อนรัน แล้วเปรียบเทียบกับผลจริง หากต่างกัน ให้ลองอธิบายว่าเกิดจากส่วนใดของโค้ด
-
-## โค้ดตัวอย่าง
-
-### examples/main.go
+ส่วนที่เพิ่มใน [examples/model.go](examples/model.go)
 
 ```go
-package main
-
-import "fmt"
-
-func main() {
-	readings := []Reading{
-		{DeviceID: "sensor-01", Celsius: 27.5},
-		{DeviceID: "sensor-02", Celsius: 30},
-		{DeviceID: "sensor-03", Celsius: -1},
-		{DeviceID: "sensor-04", Celsius: 28},
-	}
-	for _, line := range buildReport(readings) {
-		fmt.Println(line)
-	}
-}
-```
-
-### examples/model.go
-
-```go
-package main
-
-import (
-	"errors"
-	"fmt"
-)
-
-type Reading struct {
-	DeviceID string
-	Celsius  float64
-}
-
-func status(reading Reading) string {
-	if reading.Celsius >= 30 {
-		return "WARNING"
-	}
-	return "OK"
-}
-
-func validate(reading Reading) error {
-	if reading.DeviceID == "" {
-		return errors.New("device ID is empty")
-	}
-	if reading.Celsius < 0 || reading.Celsius > 100 {
-		return errors.New("temperature outside simulated range")
-	}
-	return nil
-}
-
 func buildReport(readings []Reading) []string {
 	lines := []string{}
 	for _, reading := range readings {
@@ -89,16 +24,21 @@ func buildReport(readings []Reading) []string {
 }
 ```
 
-## รันและตรวจผล
+ไฟล์ที่ใช้ร่วมกัน: [examples/main.go](examples/main.go)
 
-เปิด PowerShell แล้วเลือกโฟลเดอร์บทเรียน หากวางหลักสูตรไว้ที่ตำแหน่งอื่น ให้ปรับเส้นทางในคำสั่งให้ตรงกับเครื่องของคุณ:
+## 2. ลองรัน
+
+**ก่อนรัน:** หลังรายการ sensor-03 ผิด sensor-04 จะยังได้รายงานหรือไม่?
+
+จากโฟลเดอร์หลักสูตรที่มี `lessons` เปิด PowerShell แล้วใช้:
 
 ```powershell
-Set-Location -LiteralPath 'C:\Users\kopes\Documents\Codex\2026-09-17\go-youtube-go-iot-edge-gateway\Go\lessons\phase-01\ep27-project-report'
+Set-Location -LiteralPath './lessons/phase-01/ep27-project-report'
 go run ./examples
 ```
 
-ผลที่คาดหวัง:
+<details>
+<summary>ดูผลที่คาดหวังหลังลองรัน</summary>
 
 ```text
 sensor-01: 27.5 C [OK]
@@ -107,43 +47,32 @@ sensor-03: ERROR: temperature outside simulated range
 sensor-04: 28.0 C [OK]
 ```
 
-หากผลลัพธ์ไม่ตรงกับที่คาด ให้ตรวจตำแหน่งด้วย `Get-Location` และตรวจว่าได้บันทึกไฟล์แล้ว หากมีข้อผิดพลาด ให้อ่านข้อความแรกก่อนแก้โค้ด
+buildReport คืนบรรทัดรายงานให้ main พิมพ์ จึงตรวจข้อความได้โดยไม่ต้องอ่านข้อความจากหน้าจอ
 
-## อธิบายการทำงานของโค้ด
+</details>
+
+## 3. ฝึกเอง
+
+ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ใน [practics](../../../docs/PRACTICE.md) แล้วลองตอบ: continue ต่างจาก return ใน buildReport อย่างไร?
+
+<details>
+<summary>อ่านเพิ่มเติมเมื่อสงสัย</summary>
+
+เรามีแบบฟอร์มหลายใบ ถ้าใบหนึ่งผิด ให้บันทึกปัญหาของใบนั้นแล้วตรวจใบถัดไป รายงานยังรักษาลำดับข้อมูลเข้า
+
+continue ข้ามส่วนที่เหลือของรอบปัจจุบันแล้วไปตรวจรอบต่อไป; fmt.Sprintf จัดรูปแบบแล้วคืน string โดยไม่พิมพ์; buildReport คืน slice ของบรรทัดรายงาน; _ ทิ้ง index ที่ไม่ได้ใช้
 
 - buildReport รับ []Reading และสะสม []string ส่วน main รับผิดชอบพิมพ์ จึงทดสอบข้อความได้โดยตรง
 - เมื่อ validate ไม่ผ่าน เพิ่มบรรทัด ERROR แล้ว continue เพื่อไม่สร้างบรรทัดสำเร็จของรายการเดียวกัน
 - โค้ดทำทีละรายการตามลำดับ ไม่ใช่งานพร้อมกัน; นี่เป็นเพียงการจัดการข้อมูลจำลองในหน่วยความจำ
 
-**หลักภาษาและแนวทางออกแบบ:** รูปแบบคำสั่งและชนิดข้อมูลเป็นหลักของภาษา Go การแยกโค้ดตามหน้าที่เป็นแนวทางออกแบบให้เข้าใจง่าย ส่วนชื่อโฟลเดอร์และการใช้หนึ่ง module ต่อ EP เป็นทางเลือกในการจัดหลักสูตร
-
-## ฝึกแก้ไขโค้ดด้วยตนเอง
-
-เปิด [วิธีสร้างพื้นที่ฝึก](../../../docs/PRACTICE.md) แล้วสร้างพื้นที่ฝึกสำหรับ EP.27 ด้วย `./scripts/new-practice.ps1 -Episode 27` จากราก Go เพียงครั้งเดียว จากนั้นเปิด `practics/phase-01/ep27-project-report` แก้ไฟล์ใน `examples` แล้วรัน `go run ./examples` จากโฟลเดอร์ EP ที่คัดลอกแล้ว
-
-พื้นที่ฝึกไม่รวมเฉลย และคำสั่งสร้างจะหยุดถ้าโฟลเดอร์มีอยู่แล้ว จึงไม่ทับงานที่เคยทำ
-
-## ข้อผิดพลาดที่พบบ่อย
+**ข้อผิดพลาดที่พบบ่อย**
 
 - ใช้ return ในกรณีรายการผิด: จะจบทั้งฟังก์ชันและไม่ทำรายการถัดไป
 - ลืม continue: รายการเสียจะมีทั้ง ERROR และบรรทัดสถานะที่ไม่ควรมี
 
-## แบบฝึกหัดและคำถามทบทวน
+[เฉลย](solutions/README.md) · [ผลตรวจและข้อจำกัด](tests/RESULTS.md) · [เอกสาร Go](https://go.dev/ref/spec#Continue_statements)
 
-ทำ [แบบฝึกหัด 2 ข้อ](exercises/README.md) ก่อนดูเฉลย คาดเดาผลลัพธ์ของแต่ละข้อ แล้วแก้โค้ดตามที่โจทย์กำหนด
+</details>
 
-คำถามตรวจความเข้าใจ: continue ต่างจาก return ใน buildReport อย่างไร?
-
-เปิด [เฉลยและคำอธิบาย](solutions/README.md) หลังทำแบบฝึกหัด หากยังติดปัญหา ให้จดผลที่คาด ผลจริง และข้อความผิดพลาดไว้ประกอบการตรวจสอบ
-
-## สรุปบทเรียนและขอบเขตของตัวอย่าง
-
-ต่อยอดสู่งานอ่านหลายอุปกรณ์ใน Phase 5 ได้ แต่ยังไม่มีการอ่านอุปกรณ์หรือทำงานพร้อมกันจริง
-
-ใช้ข้อมูลจำลองภายในโปรแกรมเท่านั้น ยังไม่ได้อ่านอุปกรณ์ ส่ง MQTT เรียก API หรือเก็บฐานข้อมูล โปรเจกต์นี้ใช้ข้อความชื่อและตัวเลขปกติที่เขียนไว้ในโค้ด ยังไม่ครอบคลุม NaN ชื่อที่มีแต่ช่องว่าง หรือข้อมูลภายนอก
-
-ผลตรวจจริงและส่วนที่ยังไม่ได้ทดสอบ: [tests/RESULTS.md](tests/RESULTS.md)
-
-อ้างอิงหลัก: [เอกสาร Go ทางการ](https://go.dev/ref/spec#Continue_statements)
-
-เมื่อทำแบบฝึกหัดและอธิบายผลได้แล้ว จึงเปิด [ตอนถัดไป / สารบัญ](../ep28-project-tests/README.md) สามารถทบทวนบทนี้ได้ตามต้องการก่อนเรียนต่อ
+[ตอนก่อนหน้า](../ep26-project-validation/README.md) · [สารบัญ](../../../docs/playlist-01-go-basic/README.md) · [ตอนถัดไป](../ep28-project-tests/README.md)

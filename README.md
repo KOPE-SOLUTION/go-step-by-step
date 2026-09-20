@@ -27,7 +27,6 @@ Back-end คือโปรแกรมฝั่งบริการ, API ค�
 1. เครื่องนี้ติดตั้ง Go 1.27.1 แล้วเมื่อ 2026-09-19 ดู [ผลตรวจเครื่อง](notes/environment.md) ไม่ต้องติดตั้งซ้ำ
 2. เปิด [EP.1 ฉบับทีละก้าว](lessons/01-hello-go/EP01.md) ทำทีละช่วง ยังไม่ต้องอ่านเนื้อหารวมทั้งบท
 3. ทำแบบฝึกหัดสั้น 2 ข้อใน EP.1 ก่อนเปิดเฉลย เมื่อพร้อมให้เลือกตอนต่อไปจาก [สารบัญ Phase 1](docs/playlist-01-go-basic/README.md)
-4. บันทึกสิ่งที่ทำได้และคำถามใน [PROGRESS.md](PROGRESS.md)
 
 ตำแหน่งที่สร้างจริง:
 
@@ -43,7 +42,6 @@ C:\Users\kopes\Documents\Codex\2026-09-17\go-youtube-go-iot-edge-gateway\Go
 Go/
   README.md
   ROADMAP.md
-  PROGRESS.md
   .gitignore
   docs/
     README.md

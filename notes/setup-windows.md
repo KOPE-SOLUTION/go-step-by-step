@@ -21,7 +21,7 @@ Get-Command go
 git --version
 ```
 
-ผล `go version` ควรมีรูปแบบ `go version go<version> windows/amd64` เลขเวอร์ชันขึ้นกับที่ติดตั้งจริง คัดลอกผลจริงลง PROGRESS.md อย่าบันทึกตัวอย่างนี้เป็นผลทดสอบ
+ผล `go version` ควรมีรูปแบบ `go version go<version> windows/amd64` โดยเลขเวอร์ชันขึ้นกับที่ติดตั้งจริง
 
 หากยังหา `go` ไม่พบ อ่าน [troubleshooting](troubleshooting.md) ก่อนแก้ PATH ด้วยตนเอง ไม่ต้องกำหนด GOPATH หรือ GOROOT เพื่อทำบทนี้
 
