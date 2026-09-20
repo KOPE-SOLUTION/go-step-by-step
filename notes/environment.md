@@ -1,5 +1,7 @@
 # ผลตรวจสภาพแวดล้อม
 
+ตำแหน่งหลักสูตรปัจจุบัน: `C:\Users\kopes\Documents\L\Go`
+
 ## อัปเดต 2026-09-19 — ติดตั้งและรันได้แล้ว
 
 - ผู้เรียนอนุญาตให้ตรวจและติดตั้ง Go ในข้อความวันที่ 2026-09-19
@@ -18,7 +20,6 @@
 
 | รายการ | สิ่งที่ตรวจพบจริง |
 |---|---|
-| Workspace | `C:\Users\kopes\Documents\Codex\2026-09-17\go-youtube-go-iot-edge-gateway` |
 | ระบบ | Windows NT 10.0.26200.0, สถาปัตยกรรม X64 |
 | PowerShell | 7.6.5 |
 | Git | `git version 2.50.0.windows.1` |
@@ -26,8 +27,7 @@
 | Go ใน PATH | `Get-Command go` ไม่พบ; ลอง `go version` แล้วคำสั่งไม่เป็นที่รู้จัก |
 | Go ตำแหน่งทั่วไป | ไม่พบ executable ทั้ง 5 ตำแหน่งที่ระบุด้านล่าง |
 | Registry รายการติดตั้ง | ไม่พบชื่อที่ตรงกับ Go Programming Language / Golang / Go version ใน uninstall keys ที่ค้น |
-| `Go` ใน workspace ก่อนสร้าง | ไม่มี |
-| โฟลเดอร์ที่แนบ `C:\Users\kopes\Documents\L\Go` | มีอยู่ ว่าง รวมการตรวจไฟล์ซ่อนแล้ว ไม่ได้เขียนลงโฟลเดอร์นี้ |
+| โฟลเดอร์ปลายทางที่ตรวจเมื่อ 2026-09-17 | ยังว่างในวันตรวจ ต่อมาใช้เป็นที่เก็บหลักสูตร |
 
 ตำแหน่งที่ตรวจ: `C:\Program Files\Go\bin\go.exe`, `C:\Program Files (x86)\Go\bin\go.exe`, `C:\Go\bin\go.exe`, `%LOCALAPPDATA%\Programs\Go\bin\go.exe`, `%USERPROFILE%\scoop\apps\go\current\bin\go.exe`
 

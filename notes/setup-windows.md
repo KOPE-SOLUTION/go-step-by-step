@@ -28,7 +28,7 @@ git --version
 ## ไปยังบทที่ 1
 
 ```powershell
-Set-Location -LiteralPath 'C:\Users\kopes\Documents\Codex\2026-09-17\go-youtube-go-iot-edge-gateway\Go\lessons\01-hello-go'
+Set-Location -LiteralPath 'C:\Users\kopes\Documents\L\Go\lessons\01-hello-go'
 Get-Location
 go version
 go run ./examples/hello

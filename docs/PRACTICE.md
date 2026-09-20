@@ -16,7 +16,7 @@
 เปิด PowerShell แล้วเลือกโฟลเดอร์ฝึก:
 
 ```powershell
-Set-Location -LiteralPath 'C:\Users\kopes\Documents\Codex\2026-09-17\go-youtube-go-iot-edge-gateway\Go\practics\phase-01\ep01-hello-go'
+Set-Location -LiteralPath 'C:\Users\kopes\Documents\L\Go\practics\phase-01\ep01-hello-go'
 go run .
 ```
 
