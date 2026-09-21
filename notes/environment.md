@@ -10,7 +10,7 @@
 - จึงติดตั้งจาก ZIP ทางการเฉพาะบัญชีผู้ใช้ที่ `C:\Users\kopes\AppData\Local\Programs\Go-1.27.1\go` ตรวจ SHA256 ZIP: `a3911b5e0e1b1053f25ed0675f4c1c6aad1e2bfcf253df2b9be4caabd2edd95d`
 - เพิ่มเฉพาะ `C:\Users\kopes\AppData\Local\Programs\Go-1.27.1\go\bin` ใน User PATH โดยเก็บค่าเดิมไว้ใน TEMP และไม่แทนที่รายการอื่น ไม่มีการแก้ execution policy หรือปิดระบบป้องกัน
 - สำเนา PATH เดิม: `%TEMP%\go-course-setup-20260919\user-path-before-d3a5934749f74f53bf4b4d4aaf4c26d3.txt`
-- ผลจริง: `go version go1.27.1 windows/amd64` ตรวจรูปแบบ/compile/vet/run/build ผ่าน ดู tests/RESULTS.md
+- ผลจริง: `go version go1.27.1 windows/amd64` ตรวจรูปแบบ/compile/vet/run/build ผ่าน ผลครั้งนั้นเป็นประวัติการติดตั้ง ดูผลหลักสูตรปัจจุบันใน [phase-01-results.md](phase-01-results.md)
 - การเรียกครั้งทดสอบโหลด PATH ล่าสุดเข้าหน้าต่างทดสอบแล้ว ผู้เรียนยังต้องลอง `go version` ใน PowerShell ใหม่ของตนเอง จึงจะยืนยันหน้าต่างฝั่งผู้เรียนได้
 - ใช้ TEMP เก็บไฟล์ติดตั้งและ build เพราะการสร้างไฟล์ด้วยโปรแกรมภายใต้ Documents ล้มเหลว ยังไม่สรุปว่ามาจากซอฟต์แวร์ป้องกันตัวใด
 

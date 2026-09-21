@@ -24,21 +24,10 @@ git --version
 
 หากยังหา `go` ไม่พบ อ่าน [troubleshooting](troubleshooting.md) ก่อนแก้ PATH ด้วยตนเอง ไม่ต้องกำหนด GOPATH หรือ GOROOT เพื่อทำบทนี้
 
-## ไปยังบทที่ 1
+## เริ่มบทที่ 1
 
-เปิด terminal ที่โฟลเดอร์ `lessons/01-hello-go` ใน VS Code ทำได้โดยคลิกขวาโฟลเดอร์นี้ในแถบ Explorer แล้วเลือก **Open in Integrated Terminal** ใช้ PowerShell หรือ Command Prompt (cmd) ได้ทั้งคู่
+เปิด [EP.1 — เขียนและรันโปรแกรม Go แรก](../lessons/phase-01/ep01-hello-go/README.md) แล้วสร้างพื้นที่ฝึกตามบท
 
-```shell
-go version
-go run ./examples/hello
-```
+หากต้องการลองโค้ดอ้างอิง ให้เปิด terminal ที่ `lessons/phase-01/ep01-hello-go` แล้วใช้ `go run .` จะได้ข้อความทักทาย ชื่ออุปกรณ์ และสถานะตามตัวอย่างในบท
 
-ผลที่คาดหวัง:
-
-```text
-Hello, Go!
-```
-
-อ่าน [บทเรียน](../lessons/01-hello-go/README.md) ก่อนทดลองแก้โค้ด
-
-อ้างอิง: [การติดตั้ง Go ทางการ — แท็บ Windows](https://go.dev/doc/install), [รายการดาวน์โหลด](https://go.dev/dl/)
+อ้างอิง: [การติดตั้ง Go ทางการ](https://go.dev/doc/install), [รายการดาวน์โหลด](https://go.dev/dl/)

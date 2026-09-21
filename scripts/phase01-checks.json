@@ -1,31 +1,31 @@
 [
   {
     "episode": 1,
-    "path": "lessons/01-hello-go",
-    "practice": "ep01-hello-go",
-    "entry": "examples/hello",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep01-hello-go",
     "cases": [
       {
-        "path": "./examples/hello",
+        "path": ".",
         "expected": [
-          "Hello, Go!"
+          "Hello, Go!",
+          "Device: sensor-01",
+          "Status: ready"
         ]
       },
       {
-        "path": "./solutions/01-greeting",
+        "path": "./solutions/01",
         "expected": [
-          "Hello, learner!"
+          "Hello, Go!",
+          "Device: sensor-02",
+          "Status: waiting"
         ]
       },
       {
-        "path": "./solutions/02-two-lines",
+        "path": "./solutions/02",
         "expected": [
-          "Hello, learner!",
-          "Gateway simulator is starting."
+          "Hello, Go!",
+          "Device:",
+          "sensor-01",
+          "Status: ready"
         ]
       }
     ],
@@ -33,30 +33,30 @@
   },
   {
     "episode": 2,
-    "path": "lessons/phase-01/ep02-read-program",
-    "practice": "ep02-read-program",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep02-variables-types",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "Hello, learner!"
+          "sensor-01: 28.2 C",
+          "connected=true retries=0",
+          "label=\"\" failed=false"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "Device simulator"
+          "sensor-02: 26.75 C",
+          "connected=true retries=0",
+          "label=\"\" failed=false"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "สวัสดี Go"
+          "sensor-01: 28.2 C",
+          "connected=true retries=2",
+          "label=\"backup\" failed=true"
         ]
       }
     ],
@@ -64,33 +64,24 @@
   },
   {
     "episode": 3,
-    "path": "lessons/phase-01/ep03-output-lines",
-    "practice": "ep03-output-lines",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep03-calculations-conditions",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "Device: sensor-01",
-          "READY"
+          "30.0 C = 86.0 F [WARNING]"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "READY",
-          "Device: sensor-01"
+          "34.0 C = 93.2 F [OK]"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "Device: sensor-01",
-          "STOPPED"
+          "101.0 C = 213.8 F [INVALID]"
         ]
       }
     ],
@@ -98,68 +89,65 @@
   },
   {
     "episode": 4,
-    "path": "lessons/phase-01/ep04-read-errors",
-    "practice": "ep04-read-errors",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep04-loops",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "Check complete"
+          "round 1: 26.0 C",
+          "round 2: 27.0 C",
+          "round 3: skipped",
+          "round 4: 29.0 C",
+          "round 5: 30.0 C",
+          "average: 28.00 C (4 readings)"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "Check complete"
+          "round 1: 26.0 C",
+          "round 2: 27.0 C",
+          "round 3: skipped",
+          "average: 26.50 C (2 readings)"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "Fixed"
+          "round 1: 26.0 C",
+          "round 2: 27.0 C",
+          "round 3: stopped",
+          "average: 26.50 C (2 readings)"
         ]
       }
     ],
-    "unit": false,
-    "negative": {
-      "file": "tests/lowercase.go.txt",
-      "contains": "undefined: fmt.println"
-    }
+    "unit": false
   },
   {
     "episode": 5,
-    "path": "lessons/phase-01/ep05-variables",
-    "practice": "ep05-variables",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep05-functions",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "sensor-01",
-          "sensor-02"
+          "30.0 C = 86.0 F [WARNING]",
+          "at threshold 35: OK"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "sensor-03",
-          "sensor-04"
+          "30.0 C = 86.0 F [WARNING]",
+          "at threshold 35: OK",
+          "86 F = 30.0 C"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "deviceName",
-          "sensor-01"
+          "29 C: OK",
+          "30 C: WARNING",
+          "31 C: WARNING"
         ]
       }
     ],
@@ -167,36 +155,35 @@
   },
   {
     "episode": 6,
-    "path": "lessons/phase-01/ep06-data-types",
-    "practice": "ep06-data-types",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep06-errors",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "001",
-          "3",
-          "27.5",
-          "true"
+          "accepted: 27.5 C",
+          "ERROR: temperature must be a number: \"warm\"",
+          "ERROR: temperature outside simulated range: 101.0",
+          "accepted: 30.0 C"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "007",
-          "2",
-          "30.5",
-          "false"
+          "accepted: 27.5 C",
+          "ERROR: temperature must be a number: \"warm\"",
+          "ERROR: temperature outside simulated range: 101.0",
+          "accepted: 30.0 C",
+          "accepted: 0.0 C",
+          "accepted: 100.0 C"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "5"
+          "accepted: 27.5 C",
+          "ERROR: temperature is required",
+          "ERROR: temperature outside simulated range: 101.0",
+          "accepted: 30.0 C"
         ]
       }
     ],
@@ -204,35 +191,33 @@
   },
   {
     "episode": 7,
-    "path": "lessons/phase-01/ep07-zero-values",
-    "practice": "ep07-zero-values",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep07-arrays-slices",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "0",
-          "0",
-          "false",
-          "[]"
+          "0: 27.5 C",
+          "1: 30.0 C",
+          "2: 28.5 C",
+          "3: 32.0 C",
+          "average: 29.5 C, warnings: 2"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "[]",
-          "[sensor-01]"
+          "0: 27.5 C",
+          "1: 30.0 C",
+          "2: 28.5 C",
+          "3: 32.0 C",
+          "4: 26.5 C",
+          "average: 28.9 C, warnings: 2"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "false",
-          "true"
+          "no readings"
         ]
       }
     ],
@@ -240,30 +225,34 @@
   },
   {
     "episode": 8,
-    "path": "lessons/phase-01/ep08-format-output",
-    "practice": "ep08-format-output",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep08-maps",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "sensor-01: 27.6 C, online=true"
+          "sensor-01: 29.0 C",
+          "sensor-02: 0.0 C",
+          "sensor-04: not found",
+          "devices: 2"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "sensor-02: 28.25 C"
+          "sensor-01: 29.0 C",
+          "sensor-02: 0.0 C",
+          "sensor-04: 25.0 C",
+          "devices: 3"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "name=\"\" count=3"
+          "sensor-01: 29.0 C",
+          "sensor-02: 0.0 C",
+          "sensor-04: not found",
+          "sensor-03: not found",
+          "devices: 2"
         ]
       }
     ],
@@ -271,31 +260,31 @@
   },
   {
     "episode": 9,
-    "path": "lessons/phase-01/ep09-arithmetic",
-    "practice": "ep09-arithmetic",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep09-structs",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "2",
-          "2.5"
+          "sensor-01: 27.5 C [OK]",
+          "sensor-02: 30.0 C [WARNING]",
+          "original: 27.5, copy: 99.0"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "3.5"
+          "sensor-01: 27.5 C [OK]",
+          "sensor-02: 30.0 C [WARNING]",
+          "sensor-03: 31.5 C [WARNING]",
+          "original: 27.5, copy: 99.0"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "77.0"
+          "sensor-01: 32.0 C [WARNING]",
+          "sensor-02: 30.0 C [WARNING]",
+          "original: 32.0, copy: 99.0"
         ]
       }
     ],
@@ -303,30 +292,27 @@
   },
   {
     "episode": 10,
-    "path": "lessons/phase-01/ep10-conditions",
-    "practice": "ep10-conditions",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep10-methods-pointers",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "WARNING"
+          "after copy: 29.0 C [OK]",
+          "after pointer: 31.0 C [WARNING]"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "OK"
+          "after copy: 29.0 C [OK]",
+          "after pointer: 27.5 C [OK]"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "EMPTY"
+          "after function: 31.0 C [WARNING]",
+          "after pointer: 33.0 C [WARNING]"
         ]
       }
     ],
@@ -334,36 +320,30 @@
   },
   {
     "episode": 11,
-    "path": "lessons/phase-01/ep11-loops",
-    "practice": "ep11-loops",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep11-interfaces",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "sample 1",
-          "sample 2",
-          "sample 3"
+          "sensor-01: 27.5 C",
+          "sensor-02: ERROR: simulated read failure",
+          "sensor-03: 30.0 C"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "sample 1",
-          "sample 2",
-          "sample 3",
-          "sample 4",
-          "sample 5"
+          "sensor-01: 27.5 C",
+          "sensor-02: 28.0 C",
+          "sensor-03: 30.0 C"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "DONE"
+          "sensor-01: 27.5 C",
+          "sensor-02: ERROR: simulated read failure",
+          "sensor-03: 28.5 C"
         ]
       }
     ],
@@ -371,31 +351,28 @@
   },
   {
     "episode": 12,
-    "path": "lessons/phase-01/ep12-function-parameters",
-    "practice": "ep12-function-parameters",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep12-packages-modules",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "Device: sensor-01",
-          "Device: sensor-02"
+          "sensor-01: WARNING",
+          "sensor-02: OK"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "Device: gateway-01"
+          "sensor-01: WARNING",
+          "sensor-02: OK",
+          "30 C = 86.0 F"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "Count: 3"
+          "sensor-01: OK",
+          "sensor-02: OK"
         ]
       }
     ],
@@ -403,465 +380,44 @@
   },
   {
     "episode": 13,
-    "path": "lessons/phase-01/ep13-function-results",
-    "practice": "ep13-function-results",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep13-unit-tests",
     "cases": [
       {
-        "path": "./examples",
+        "path": ".",
         "expected": [
-          "77.0 F"
+          "29.9 C: OK",
+          "30.0 C: WARNING"
         ]
       },
       {
         "path": "./solutions/01",
         "expected": [
-          "32.0 F"
+          "29.9 C: OK",
+          "30.0 C: WARNING"
         ]
       },
       {
         "path": "./solutions/02",
         "expected": [
-          "true"
+          "29.9 C: OK",
+          "30.0 C: OK"
         ]
       }
     ],
-    "unit": false
+    "unit": true
   },
   {
     "episode": 14,
-    "path": "lessons/phase-01/ep14-errors",
-    "practice": "ep14-errors",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
+    "path": "lessons/phase-01/ep14-measurement-report",
     "cases": [
       {
-        "path": "./examples",
-        "expected": [
-          "Temperature: 27.5"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "ERROR: temperature outside simulated range"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "Temperature: 100"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 15,
-    "path": "lessons/phase-01/ep15-arrays",
-    "practice": "ep15-arrays",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "count: 3",
-          "0 27.5",
-          "1 28",
-          "2 30"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "25"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "[1 2]",
-          "[9 2]"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 16,
-    "path": "lessons/phase-01/ep16-slices",
-    "practice": "ep16-slices",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "[27.5 28 30]",
-          "count: 3"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "[sensor-01]",
-          "1"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "[9 2 3]"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 17,
-    "path": "lessons/phase-01/ep17-maps",
-    "practice": "ep17-maps",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "0 true",
-          "0 false"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "28.5 true"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "0 false"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 18,
-    "path": "lessons/phase-01/ep18-structs",
-    "practice": "ep18-structs",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "sensor-01 27.5"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "sensor-02 0"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "25 30"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 19,
-    "path": "lessons/phase-01/ep19-methods",
-    "practice": "ep19-methods",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "true"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "false"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "77.0 F"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 20,
-    "path": "lessons/phase-01/ep20-pointers",
-    "practice": "ep20-pointers",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "25.5"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "19.5"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "6"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 21,
-    "path": "lessons/phase-01/ep21-packages",
-    "practice": "ep21-packages",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples",
-      "sensor"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "true"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "false"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "true",
-          "true"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 22,
-    "path": "lessons/phase-01/ep22-modules",
-    "practice": "ep22-modules",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples",
-      "sensor"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "true"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "false"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "true"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 23,
-    "path": "lessons/phase-01/ep23-first-test",
-    "practice": "ep23-first-test",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "true"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "false"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "true"
-        ]
-      }
-    ],
-    "unit": true
-  },
-  {
-    "episode": 24,
-    "path": "lessons/phase-01/ep24-boundary-tests",
-    "practice": "ep24-boundary-tests",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "false"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "false"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "true"
-        ]
-      }
-    ],
-    "unit": true
-  },
-  {
-    "episode": 25,
-    "path": "lessons/phase-01/ep25-project-reading",
-    "practice": "ep25-project-reading",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "sensor-01: 27.5 C [OK]"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "sensor-02: 30.0 C [WARNING]"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "sensor-03: 30.0 C [OK]"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 26,
-    "path": "lessons/phase-01/ep26-project-validation",
-    "practice": "ep26-project-validation",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
-        "expected": [
-          "ERROR: temperature outside simulated range"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          "ERROR: device ID is empty"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "sensor-01: 100.0 C [WARNING]"
-        ]
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 27,
-    "path": "lessons/phase-01/ep27-project-report",
-    "practice": "ep27-project-report",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
+        "path": ".",
         "expected": [
           "sensor-01: 27.5 C [OK]",
           "sensor-02: 30.0 C [WARNING]",
           "sensor-03: ERROR: temperature outside simulated range",
-          "sensor-04: 28.0 C [OK]"
+          "sensor-04: 28.0 C [OK]",
+          "accepted: 3/4"
         ]
       },
       {
@@ -871,47 +427,18 @@
           "sensor-02: 30.0 C [WARNING]",
           "sensor-03: ERROR: temperature outside simulated range",
           "sensor-04: 28.0 C [OK]",
-          "sensor-05: 31.0 C [WARNING]"
+          "sensor-05: 0.0 C [OK]",
+          "accepted: 4/5"
         ]
       },
       {
         "path": "./solutions/02",
-        "expected": []
-      }
-    ],
-    "unit": false
-  },
-  {
-    "episode": 28,
-    "path": "lessons/phase-01/ep28-project-tests",
-    "practice": "ep28-project-tests",
-    "entry": "examples",
-    "copies": [
-      "go.mod",
-      "examples"
-    ],
-    "cases": [
-      {
-        "path": "./examples",
         "expected": [
           "sensor-01: 27.5 C [OK]",
           "sensor-02: 30.0 C [WARNING]",
           "sensor-03: ERROR: temperature outside simulated range",
-          "sensor-04: 28.0 C [OK]"
-        ]
-      },
-      {
-        "path": "./solutions/01",
-        "expected": [
-          ": ERROR: device ID is empty"
-        ]
-      },
-      {
-        "path": "./solutions/02",
-        "expected": [
-          "bad-01: ERROR: temperature outside simulated range",
-          "bad-02: ERROR: temperature outside simulated range",
-          "good: 25.0 C [OK]"
+          "sensor-04: 28.0 C [OK]",
+          "accepted: 3/4"
         ]
       }
     ],

@@ -1,7 +1,7 @@
 #requires -Version 7.0
 [CmdletBinding()]
 param(
-    [ValidateRange(0, 28)][int]$Episode = 0,
+    [ValidateRange(0, 14)][int]$Episode = 0,
     [string]$GoCommand = 'go'
 )
 $ErrorActionPreference = 'Stop'
@@ -44,9 +44,11 @@ function Normalize-Output([string]$Value) {
 }
 $previousToolchain = $env:GOTOOLCHAIN
 $previousProxy = $env:GOPROXY
+$previousWork = $env:GOWORK
 try {
     $env:GOTOOLCHAIN = 'local'
     $env:GOPROXY = 'off'
+    $env:GOWORK = 'off'
     $version = Invoke-Tool $goPath @('version') $courseRoot
     Assert-Success $version 'go version'
     Write-Output $version.Stdout.Trim()
@@ -85,4 +87,5 @@ try {
 } finally {
     $env:GOTOOLCHAIN = $previousToolchain
     $env:GOPROXY = $previousProxy
+    $env:GOWORK = $previousWork
 }
