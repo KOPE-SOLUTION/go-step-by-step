@@ -28,3 +28,17 @@
 **หลักภาษา** เช่นชนิดและการคัดลอกค่าต้องทำงานตาม Go ส่วน **แนวทางออกแบบ** เช่นแยกคำนวณจากการพิมพ์ และ **ทางเลือก** เช่นใช้ interface หรือ switch เลือกตามปัญหาที่กำลังแก้
 
 ตรวจเอกสารวันที่ 2026-09-21 โค้ดประกาศ Go 1.22.0 และตรวจด้วย Go 1.27.1 บน Windows ดูขอบเขตที่ยืนยันได้ใน [ผลตรวจ](../notes/phase-01-results.md)
+
+## การจัดโครงสร้างใน Phase 2–5
+
+วางแผนให้เรียนจาก API ที่ทำงานแล้ว จึงค่อยแยกกฎ HTTP และฐานข้อมูล ดู [เส้นทางจัดโครงสร้างโค้ด](ARCHITECTURE.md) การปรับแผนส่วนนี้ไม่เปลี่ยนจำนวน 14 EP ของ Phase 1
+
+| เอกสาร | ใช้ประกอบเรื่องใด |
+|---|---|
+| [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) | ทิศทางการพึ่งพาและขอบเขตระหว่างกฎกับรายละเอียดภายนอก |
+| [Organizing a Go module](https://go.dev/doc/modules/layout) | โครงสร้างโปรแกรมและการใช้ cmd/internal ตามบริบท |
+| [Go Code Review Comments: Interfaces](https://go.dev/wiki/CodeReviewComments#interfaces) | interface จากการใช้งานจริงและตำแหน่งฝั่งผู้ใช้ |
+| [Routing enhancements for Go 1.22](https://go.dev/blog/routing-enhancements) | HTTP method และ path parameter ใน standard library |
+| [How to implement clean architecture in Golang](https://medium.com/@rayato159/how-to-implement-clean-architecture-in-golang-87e9f2c8c5e4) | ตัวอย่างการแยกหน้าที่ด้วย Echo, GORM และ PostgreSQL จากบทความวันที่ 2023-11-25 |
+
+ทบทวนแหล่งอ้างอิงสถาปัตยกรรมวันที่ 2026-09-24 แนวทางนี้เป็นทางเลือกออกแบบ ไม่กำหนดให้ทุกชั้นมี interface หรือใช้เครื่องมือชุดเดียวกับบทความ ต้องตรวจ dependency อีกครั้งเมื่อจัดทำบทที่รันได้จริง
