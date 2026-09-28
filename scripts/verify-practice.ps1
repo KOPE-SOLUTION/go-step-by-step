@@ -77,12 +77,22 @@ try {
     $negativeRoot = Join-Path $testRoot 'typo'
     New-Item -ItemType Directory -Path $negativeRoot | Out-Null
     $hello = [IO.File]::ReadAllText((Join-Path $courseRoot ($manifest[0].path + '/main.go')))
-    [IO.File]::WriteAllText((Join-Path $negativeRoot 'main.go'), $hello.Replace('fmt.Println', 'fmt.PrintIn'), $encoding)
+    $brokenHello = $hello.Replace('fmt.Println("Hello, Go!")', 'fmt.println("Hello, Go!")')
+    if ($brokenHello -ceq $hello) { throw 'EP1 greeting line was not found for the spelling exercise' }
+    [IO.File]::WriteAllText((Join-Path $negativeRoot 'main.go'), $brokenHello, $encoding)
     $negative = Invoke-Tool $goPath @('run', 'main.go') $negativeRoot
-    if ($negative.ExitCode -eq 0 -or -not $negative.Stderr.Contains('undefined: fmt.PrintIn')) {
+    if ($negative.ExitCode -eq 0 -or $negative.Stdout.Length -gt 0 -or -not $negative.Stderr.Contains('undefined: fmt.println')) {
         throw "Expected spelling diagnostic: $($negative.Stdout)$($negative.Stderr)"
     }
-    Write-Output 'PASS: EP1 spelling mistake produced the expected diagnostic'
+    $correctedHello = $brokenHello.Replace('fmt.println("Hello, Go!")', 'fmt.Println("Hello, Go!")')
+    [IO.File]::WriteAllText((Join-Path $negativeRoot 'main.go'), $correctedHello, $encoding)
+    $corrected = Invoke-Tool $goPath @('run', 'main.go') $negativeRoot
+    Assert-Success $corrected 'EP1 corrected greeting'
+    $expectedHello = [string]::Join([string][char]10, [string[]]$manifest[0].cases[0].expected)
+    if ((Normalize-Output $corrected.Stdout) -cne $expectedHello -or $corrected.Stderr.Length -gt 0) {
+        throw "EP1 corrected output mismatch: $($corrected.Stdout)$($corrected.Stderr)"
+    }
+    Write-Output 'PASS: EP1 spelling mistake, compiler diagnostic, and corrected output'
     $mutationRoot = Join-Path $testRoot 'threshold-mutation'
     New-Item -ItemType Directory -Path $mutationRoot | Out-Null
     $unitRoot = Join-Path $courseRoot ($manifest | Where-Object episode -EQ 13).path
