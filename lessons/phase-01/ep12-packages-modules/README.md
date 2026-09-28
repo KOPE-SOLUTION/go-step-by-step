@@ -6,15 +6,15 @@
 
 ## ทำความเข้าใจ
 
-**package** รวมไฟล์ Go ในโฟลเดอร์เดียวกันเพื่อทำหน้าที่ร่วมกัน ส่วน **module** รวมหนึ่งหรือหลาย package โดยมี `go.mod` ที่ราก ระบุชื่อ module และเวอร์ชัน Go ขั้นต่ำ
+**package** รวมไฟล์ Go ในโฟลเดอร์เดียวกันเพื่อทำหน้าที่ร่วมกัน ส่วน **module** รวมหนึ่งหรือหลาย package โดยมีไฟล์ `go.mod` ในโฟลเดอร์หลักของ module เพื่อระบุชื่อ module และเวอร์ชัน Go ขั้นต่ำ
 
-ชื่อ module เป็นส่วนต้นของ import path ไม่จำเป็นต้องเป็น repository บนอินเทอร์เน็ต ตัวอย่างใช้ example.com เป็นชื่อสำหรับฝึก
+ชื่อ module เป็นส่วนต้นของ import path ไม่จำเป็นต้องเป็น repository บนอินเทอร์เน็ต ตัวอย่างใช้ `example.com` เป็นส่วนหนึ่งของชื่อสำหรับฝึก
 
 ## ลงมือทำ
 
-1. ใน practics เดิม ให้รัน `go mod init example.com/go-practice` **ครั้งเดียว** ถ้ามี go.mod แล้วให้อ่านชื่อ module เดิมก่อน ไม่ต้อง init ซ้ำ
-2. สร้างโฟลเดอร์ `sensor` ข้าง main.go และไฟล์ `sensor/reading.go` ใส่โค้ด sensor ด้านล่าง
-3. เปลี่ยน main.go เป็นโค้ดตัวอย่าง แต่ใช้ import `example.com/go-practice/sensor` ให้ตรง go.mod ของงานฝึก แล้วรัน `go run .` จาก practics
+1. ในโฟลเดอร์ `practics` เดิม ให้รัน `go mod init example.com/go-practice` **ครั้งเดียว** ถ้ามี `go.mod` แล้วให้อ่านชื่อ module เดิมก่อน ไม่ต้อง init ซ้ำ
+2. สร้างโฟลเดอร์ `sensor` ข้าง `main.go` แล้วสร้างไฟล์ `sensor/reading.go` ใส่โค้ดของ package `sensor` ด้านล่าง
+3. เปลี่ยน `main.go` เป็นโค้ดตัวอย่าง แล้วแก้ import ของ `sensor` ให้ใช้ชื่อ module ใน `practics/go.mod` ตามด้วย `/sensor` เช่น `example.com/go-practice/sensor` จากนั้นรัน `go run .` ที่ `practics`
 
 ### ตัวอย่างเมื่อทำครบ
 
@@ -56,11 +56,11 @@ func Status(celsius, threshold float64) string {
 go run .
 ```
 
-**งานฝึกต้องใช้ import `example.com/go-practice/sensor`** ส่วนโค้ดอ้างอิงด้านบนใช้ชื่อ module ของหลักสูตร ดูขั้นตอนสร้างไฟล์ในหัวข้อลงมือทำ
+**ถ้า `practics/go.mod` ระบุ `module example.com/go-practice` ให้ใช้ import `example.com/go-practice/sensor`** ส่วนตัวอย่างด้านบนใช้ชื่อ module ของหลักสูตร จึงมี import path ต่างกัน
 
 ถ้ารันตัวอย่างที่ให้มาโดยตรง ให้เปิด terminal ที่ `lessons/phase-01/ep12-packages-modules` แล้วใช้ `go run .` ใช้ได้ทั้ง terminal ใน VS Code, PowerShell และ cmd
 
-ก่อนเปิดผลลัพธ์ ลองคาดเดาว่าข้อมูลแต่ละรายการจะถูกจัดการอย่างไร
+ก่อนเปิดผลลัพธ์ ลองคาดเดาสถานะของอุณหภูมิ 30 และ 28 เมื่อใช้เกณฑ์ 30 การแยกฟังก์ชันไว้ใน package `sensor` จะเปลี่ยนผลการตรวจหรือไม่
 
 <details>
 <summary>ผลลัพธ์ที่คาดหวัง</summary>
@@ -73,24 +73,24 @@ sensor-02: OK
 </details>
 
 <details>
-<summary>อธิบายโค้ดและวิธีตรวจเมื่อผลไม่ตรง</summary>
+<summary>อธิบายโค้ดและจุดที่ควรตรวจสอบ</summary>
 
-- main อยู่ package main ส่วนไฟล์ sensor/reading.go อยู่ package sensor คนละโฟลเดอร์จึงเป็นคนละ package
-- ชื่อ `Status` ขึ้นต้นตัวใหญ่จึงเรียกจาก package อื่นได้ เรียกว่า **exported** ถ้าใช้ status จะใช้ได้ภายใน package sensor เท่านั้น
-- ตัวอย่างอ้างอิงใช้ go.mod ร่วมกันที่ phase-01 จึงมี import path ยาวกว่างานฝึก หลักคือชื่อ module ตามด้วยตำแหน่งโฟลเดอร์ package
-- `go run .` เลือกไฟล์โปรแกรมใน package ปัจจุบัน ส่วน `go run main.go` ระบุเฉพาะไฟล์ที่ส่งไป
-- ใช้ module เดียวสำหรับ Phase 1 เพราะตัวอย่างทั้งหมดใช้ standard library ไม่มี dependency ภายนอกที่ต้องแยกเวอร์ชัน ชื่อ module ไม่ได้เปลี่ยน git remote หรือ push โค้ด
+- `main.go` อยู่ใน package `main` ส่วน `sensor/reading.go` อยู่ใน package `sensor` โดยแยกคนละโฟลเดอร์
+- ชื่อ `Status` ขึ้นต้นตัวใหญ่จึงเรียกจาก package อื่นได้ เรียกว่า **exported** ถ้าใช้ชื่อ `status` จะเรียกได้เฉพาะภายใน package `sensor`
+- ตัวอย่างอ้างอิงใช้ `lessons/phase-01/go.mod` ร่วมกัน จึงมี import path ยาวกว่างานฝึก หลักคือชื่อ module ตามด้วยตำแหน่งโฟลเดอร์ package
+- `go run .` ใช้ไฟล์ Go สำหรับโปรแกรมใน package ของโฟลเดอร์ปัจจุบัน ส่วน `go run main.go` ใช้เฉพาะไฟล์ `main.go` เป็นโค้ดของ package หลัก ทั้งสองคำสั่งยังเรียกใช้ package ที่ import ได้
+- ใช้ module เดียวสำหรับ Phase 1 เพราะตัวอย่างทั้งหมดใช้ package ที่มากับ Go หรือ **standard library** ยังไม่มี package ภายนอกที่ต้องแยกจัดการเวอร์ชัน ชื่อ module ไม่ได้เปลี่ยน git remote หรือ push โค้ด
 
-**ลองตรวจเมื่อผิด:** ถ้าหา package ไม่พบ ให้ตรวจชื่อ module กับ import ให้ตรงกัน อย่าเอา package main กับ package sensor ไว้โฟลเดอร์เดียวกัน ถ้ามี go.mod อยู่แล้วต้องใช้ชื่อนั้น ไม่แก้ชื่อโดยไม่ตรวจ import ที่เกี่ยวข้อง
+**ข้อผิดพลาดที่พบบ่อย:** ถ้าหา package ไม่พบ ให้ตรวจว่า import เริ่มด้วยชื่อ module ใน `go.mod` แล้วตามด้วยโฟลเดอร์ package แยกไฟล์ของ package `main` และ `sensor` ไว้คนละโฟลเดอร์ หากมี `go.mod` เดิม ให้ใช้ชื่อ module เดิมโดยไม่ต้อง init ซ้ำ
 
 </details>
 
 ## ฝึกเอง
 
-ใช้ `practics/main.go` เดิม เริ่มแต่ละข้อจากตัวอย่างของบทนี้ ไม่ต้องสร้างโฟลเดอร์แยกโจทย์ หากต้องการเก็บงานเดิมให้คัดลอกเป็นไฟล์ .txt ก่อนเปลี่ยนโค้ด
+ฝึกใน `practics` เดิม ก่อนทำแต่ละข้อให้เริ่มจากตัวอย่าง `main.go` และ `sensor/reading.go` ของบทนี้ โดยแก้ import ให้ตรงกับ module งานฝึก หากต้องการเก็บคำตอบก่อนหน้า ให้คัดลอกเป็นไฟล์ `.txt` ก่อน
 
-1. เพิ่มฟังก์ชัน `ToFahrenheit(celsius float64) float64` ใน package sensor แล้วให้ main พิมพ์ค่า 30 C เป็น Fahrenheit ต่อท้าย
-2. ให้ main ใช้เกณฑ์ 35 ทั้งสองรายการ โดยไม่แก้ package sensor แล้วคาดเดาสถานะใหม่
+1. เพิ่มฟังก์ชัน `ToFahrenheit(celsius float64) float64` ใน `sensor/reading.go` แล้วให้ `main` เรียกฟังก์ชันเพื่อแปลง 30 C เป็น Fahrenheit และพิมพ์ต่อท้ายรายงาน
+2. ใน `main` เปลี่ยนเกณฑ์ที่ส่งให้ `sensor.Status` เป็น 35 ทั้งสองรายการ โดยไม่แก้ package `sensor` แล้วคาดเดาสถานะใหม่
 
 ทำก่อนแล้วค่อยดู [เฉลยพร้อมเหตุผล](solutions/README.md)
 
@@ -99,7 +99,7 @@ sensor-02: OK
 <details>
 <summary>แนวคำตอบ</summary>
 
-ไม่ module path เป็นชื่อที่ใช้กับระบบ import ไม่ใช่ absolute path บนเครื่อง การย้ายโฟลเดอร์อย่างเดียวไม่เปลี่ยนชื่อนี้
+ไม่ ชื่อ module ใช้ระบุ package ใน import ไม่ใช่เส้นทางโฟลเดอร์เต็มบนเครื่อง การย้ายโฟลเดอร์ที่เก็บ repository จึงไม่ทำให้ต้องเปลี่ยนชื่อ module
 
 </details>
 

@@ -31,7 +31,9 @@ Playlist 01 คือบทเรียน **Phase 1** เริ่มจาก�
 
 ใช้ `practics/main.go` ไฟล์เดิมสำหรับฝึก เปลี่ยนเนื้อหาเมื่อขึ้นบทใหม่ โดยมีโค้ดอ้างอิงเก็บแยกไว้ใน `lessons/phase-01/`
 
-EP.1–11 ใช้ `go run main.go` ตั้งแต่ EP.12 จึงสร้าง module และเพิ่มไฟล์เมื่อบทเรียนนั้นต้องใช้ `practics/` ถูก Git ignore ผู้ที่ clone repository ต้องสร้างเอง
+EP.1–11 ใช้ `go run main.go` เมื่อถึง EP.12 จึงสร้าง module และเพิ่ม package `sensor` ส่วน EP.13–14 เพิ่มไฟล์ทดสอบตามบท
+
+โฟลเดอร์ `practics/` ไม่เก็บใน Git ผู้ที่ดาวน์โหลดหรือ clone หลักสูตรจึงต้องสร้างพื้นที่ฝึกเองตาม [วิธีเริ่มฝึก](docs/PRACTICE.md)
 
 <details>
 <summary>โครงสร้างและเวอร์ชัน</summary>
@@ -55,7 +57,7 @@ Go/
   scripts/            # เครื่องมือตรวจตัวอย่าง
 ```
 
-โค้ดอ้างอิง Phase 1 ใช้ module เดียว เพราะใช้เฉพาะ standard library และไม่ต้องแยก dependency ตามบท ส่วน practics มี module ของตัวเองเมื่อถึง EP.12
+โค้ดอ้างอิง Phase 1 ใช้ module เดียว เพราะใช้เฉพาะ package ที่มากับ Go (standard library) จึงยังไม่ต้องจัดการเวอร์ชัน package ภายนอกแยกตามบท ส่วน `practics` มี module ของตัวเองเมื่อถึง EP.12
 
 ประกาศ Go 1.22.0 เป็นขั้นต่ำ ตรวจจริงด้วย Go 1.27.1 บน Windows ยังไม่ได้ตรวจด้วย compiler Go 1.22 หรือระบบอื่น ดู [ผลตรวจ](notes/phase-01-results.md)
 

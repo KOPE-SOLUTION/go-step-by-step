@@ -4,7 +4,7 @@
 
 | ส่วนที่ตรวจเทียบ | เอกสารอ้างอิง | ใช้ในบท |
 |---|---|---|
-| โปรแกรมแรก main/import/fmt และ go run | [Getting started](https://go.dev/doc/tutorial/getting-started) | EP.1 |
+| โปรแกรมแรก main/import/fmt และ go run | [Getting started](https://go.dev/doc/tutorial/getting-started), [go run](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program) | EP.1 |
 | ตัวแปร ค่าคงที่ ตัวดำเนินการ เงื่อนไข และลูป | [Language specification](https://go.dev/ref/spec) | EP.2–4 |
 | ฟังก์ชันและการคืนค่า | [Function declarations](https://go.dev/ref/spec#Function_declarations) | EP.5 |
 | คืน error และตรวจ nil | [Return and handle an error](https://go.dev/doc/tutorial/handle-errors) | EP.6 |
@@ -19,7 +19,7 @@
 
 - รวมแนวคิดที่ต้องใช้ร่วมกันเพื่อทำงานหนึ่งอย่าง เช่น ตัวแปร ชนิดข้อมูล และรูปแบบรายงาน
 - ใช้การทดลองหลายขั้นภายในบท แทนการแยกหนึ่งคำสั่งเป็นหนึ่ง EP
-- ฟังก์ชันมาก่อน error เพื่อเข้าใจการรับและคืนค่าก่อนเพิ่มผลลัพธ์ทางที่ล้มเหลว
+- ฟังก์ชันมาก่อน error เพื่อเข้าใจการรับและคืนค่าก่อนเรียนการคืนและตรวจ error เมื่องานไม่สำเร็จ
 - struct มาก่อน pointer/method และ interface เพื่อให้เห็นข้อมูลที่กำลังอ่านหรือเปลี่ยน
 - package/module เต็มบทอยู่หลังเขียนโปรแกรมเล็กได้แล้ว ต่างจาก tutorial ทางการที่เริ่ม module ตั้งแต่แรก งานฝึกช่วงต้นใช้ `go run main.go` จึงไม่ต้องตั้งค่า module เองทันที
 - ตัวอย่างอ้างอิงทั้งหมดอยู่ใน module เดียวเพื่อให้รันและตรวจทั้งเฟสได้ ส่วน practics ใช้ module แยกเมื่อถึง EP.12
