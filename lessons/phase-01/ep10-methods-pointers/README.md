@@ -10,13 +10,146 @@
 
 **pointer** เป็นค่าที่อ้างถึงตำแหน่งข้อมูล `&reading` ให้ค่า pointer ที่ชี้ไปยังตัวแปร `reading` ส่วน `*Reading` คือชนิดของ pointer ที่ชี้ไปยังข้อมูลชนิด `Reading`
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. เปลี่ยนฟังก์ชัน `status` ของบทก่อนเป็น method `Status` แล้วเรียกด้วย `reading.Status()`
-2. ลองเรียก `adjustCopy` ซึ่งรับสำเนาของ `Reading` แล้วดูว่าค่าใน `reading` ต้นฉบับเปลี่ยนหรือไม่
-3. เพิ่ม method `Adjust` ที่ใช้ receiver ชนิด `*Reading` ตามตัวอย่าง แล้วลองเปลี่ยน `pointer.Adjust(2)` เป็น `reading.Adjust(2)` เพื่อเปรียบเทียบผล
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดขั้นที่ 1 แล้วแก้ต่อทีละขั้น บันทึกและรัน `go run main.go` จาก terminal ที่ `practics` ทุกครั้ง ก่อนดูผล ให้ลองคาดเดาสิ่งที่จะพิมพ์
+
+### 1. เปลี่ยนฟังก์ชัน status เป็น method
+
+เริ่ม `main.go` ด้วย `Reading` และ method `Status`:
+
+```go
+package main
+
+import "fmt"
+
+type Reading struct {
+	DeviceID string
+	Celsius  float64
+}
+
+func (r Reading) Status() string {
+	if r.Celsius >= 30 {
+		return "WARNING"
+	}
+	return "OK"
+}
+
+func main() {
+	reading := Reading{DeviceID: "sensor-01", Celsius: 29}
+	fmt.Printf("%.1f C [%s]\n", reading.Celsius, reading.Status())
+}
+```
+
+`(r Reading)` คือ receiver ระบุว่า method ทำงานกับข้อมูลชนิดใด จึงเรียกผ่าน `reading.Status()` แทนการส่งให้ `status(reading)` แบบบทก่อน
+
+**ลองคิดก่อนรัน:** 29 C จะได้สถานะอะไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+29.0 C [OK]
+```
+
+</details>
+
+### 2. ลองแก้ค่าผ่านฟังก์ชันที่รับสำเนา
+
+เพิ่มฟังก์ชัน `adjustCopy` เหนือ `main`:
+
+```go
+func adjustCopy(r Reading, offset float64) {
+	r.Celsius += offset
+}
+```
+
+แทน `main` เพื่อเรียกฟังก์ชันแล้วตรวจต้นฉบับ:
+
+```go
+func main() {
+	reading := Reading{DeviceID: "sensor-01", Celsius: 29}
+	adjustCopy(reading, 2)
+	fmt.Printf("after copy: %.1f C [%s]\n", reading.Celsius, reading.Status())
+}
+```
+
+`adjustCopy` รับสำเนาของ `Reading` จึงเพิ่มอุณหภูมิให้เฉพาะสำเนาภายในฟังก์ชัน และไม่ได้คืนสำเนานั้นออกมา
+
+**ลองคิดก่อนรัน:** reading ต้นฉบับจะเป็น 29 หรือ 31?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+after copy: 29.0 C [OK]
+```
+
+</details>
+
+### 3. ใช้ pointer ชี้ไปยังต้นฉบับ
+
+แทน `main` เพื่อเพิ่มการแก้ค่าผ่าน pointer:
+
+```go
+func main() {
+	reading := Reading{DeviceID: "sensor-01", Celsius: 29}
+	adjustCopy(reading, 2)
+	fmt.Printf("after copy: %.1f C [%s]\n", reading.Celsius, reading.Status())
+	pointer := &reading
+	pointer.Celsius += 2
+	fmt.Printf("after pointer: %.1f C [%s]\n", reading.Celsius, reading.Status())
+}
+```
+
+`&reading` ให้ pointer ที่ชี้ไปยังตัวแปร `reading` เมื่อแก้ `pointer.Celsius` จึงแก้ field ของข้อมูลต้นฉบับที่ pointer ชี้อยู่
+
+**ลองคิดก่อนรัน:** บรรทัด after pointer จะต่างจาก after copy อย่างไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+after copy: 29.0 C [OK]
+after pointer: 31.0 C [WARNING]
+```
+
+</details>
+
+### 4. ย้ายการแก้ค่ามาไว้ใน method
+
+เพิ่ม method `Adjust` เหนือ `main` โดยเก็บ `Status` และ `adjustCopy` ไว้:
+
+```go
+func (r *Reading) Adjust(offset float64) {
+	r.Celsius += offset
+}
+```
+
+ใน `main` แทน `pointer.Celsius += 2` ด้วยการเรียก method:
+
+```go
+pointer.Adjust(2)
+```
+
+`*Reading` คือชนิด pointer ที่ชี้ไปยัง `Reading` ส่วน `offset` คือจำนวนที่จะเพิ่มหรือลด method นี้ตั้งใจแก้ต้นฉบับ จึงใช้ pointer receiver
+
+**ลองคิดก่อนรัน:** ผลลัพธ์ควรเหมือนขั้นก่อนหรือไม่? ลองอธิบายว่าต่างกันที่การจัดโค้ดหรือข้อมูลที่แก้
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+after copy: 29.0 C [OK]
+after pointer: 31.0 C [WARNING]
+```
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -54,6 +187,8 @@ func main() {
 	fmt.Printf("after pointer: %.1f C [%s]\n", reading.Celsius, reading.Status())
 }
 ```
+
+</details>
 
 ### รันและตรวจผล
 

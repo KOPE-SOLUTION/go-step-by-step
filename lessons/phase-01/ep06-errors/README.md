@@ -10,13 +10,155 @@
 
 `strconv` เป็น package ที่ช่วยแปลงข้อความและตัวเลข เราจะลองข้อความที่แปลงเป็นอุณหภูมิได้ ข้อความที่ไม่ใช่ตัวเลข และตัวเลขนอกช่วง 0–100
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. เรียก `strconv.ParseFloat("27.5", 64)` เพื่อรับค่าทศนิยมและ error แล้วลองเปลี่ยนข้อความเป็น `warm`
-2. รวมการแปลงและตรวจช่วงไว้ใน `parseCelsius` ตามตัวอย่าง ทุกคำสั่ง `return` ในฟังก์ชันนี้ต้องคืนสองค่า คือ `float64` และ `error`
-3. เรียก `show` หลายครั้งตามตัวอย่าง แล้วสังเกตว่าเมื่อพบข้อมูลผิด โปรแกรมยังตรวจข้อมูลถัดไปหรือไม่
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดขั้นที่ 1 แล้วแก้ต่อทีละขั้น บันทึกและรัน `go run main.go` จาก terminal ที่ `practics` ทุกครั้ง ก่อนดูผล ให้ลองคาดเดาสิ่งที่จะพิมพ์
+
+### 1. แปลงข้อความและรับ error
+
+เริ่ม `main.go` ด้วยตัวอย่างแปลงข้อความหนึ่งค่า:
+
+```go
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	value, err := strconv.ParseFloat("27.5", 64)
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		return
+	}
+	fmt.Printf("accepted: %.1f C\n", value)
+}
+```
+
+`ParseFloat` คืนตัวเลขกับ error; `64` ระบุการแปลงเป็น `float64` ถ้า `err != nil` ให้จัดการข้อผิดพลาดก่อน ไม่ใช้ `value` เป็นค่าที่อ่านสำเร็จ
+
+**ลองคิดก่อนรัน:** ข้อความ "27.5" จะผ่านการแปลงหรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+accepted: 27.5 C
+```
+
+</details>
+
+### 2. ลองข้อความที่ไม่ใช่ตัวเลข
+
+แทนบรรทัดที่เรียก `ParseFloat` ด้วยบรรทัดนี้:
+
+```go
+value, err := strconv.ParseFloat("warm", 64)
+```
+
+`return` ใน `main` ทำให้จบโปรแกรมหลังแสดง error จึงยังไม่ถึงบรรทัด `accepted` ในขั้นนี้
+
+**ลองคิดก่อนรัน:** จะยังเห็นข้อความ accepted หรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+ERROR: strconv.ParseFloat: parsing "warm": invalid syntax
+```
+
+</details>
+
+### 3. รวมการแปลงและตรวจช่วงเป็นฟังก์ชัน
+
+เพิ่ม `parseCelsius` เหนือ `main`:
+
+```go
+func parseCelsius(text string) (float64, error) {
+	value, err := strconv.ParseFloat(text, 64)
+	if err != nil {
+		return 0, fmt.Errorf("temperature must be a number: %q", text)
+	}
+	if value < 0 || value > 100 {
+		return 0, fmt.Errorf("temperature outside simulated range: %.1f", value)
+	}
+	return value, nil
+}
+```
+
+แทน `main` เพื่อทดสอบค่าที่แปลงได้ แต่เกินช่วงจำลอง:
+
+```go
+func main() {
+	value, err := parseCelsius("101")
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		return
+	}
+	fmt.Printf("accepted: %.1f C\n", value)
+}
+```
+
+`(float64, error)` ระบุว่าคืนสองค่า `fmt.Errorf` สร้าง error พร้อมข้อความ กรณีสำเร็จคืน `value, nil` ส่วน `0` ที่คืนคู่กับ error ไม่ใช่อุณหภูมิที่อ่านสำเร็จ
+
+**ลองคิดก่อนรัน:** 101 เป็นตัวเลข ทำไมยังถูกปฏิเสธ?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+ERROR: temperature outside simulated range: 101.0
+```
+
+</details>
+
+### 4. ให้ main ทำรายการถัดไปได้
+
+เพิ่ม `show` เหนือ `main` เพื่อรับผลจาก `parseCelsius` และแสดงข้อความ:
+
+```go
+func show(text string) {
+	value, err := parseCelsius(text)
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		return
+	}
+	fmt.Printf("accepted: %.1f C\n", value)
+}
+```
+
+แทน `main` ให้เรียก `show` กับข้อมูลสี่รายการ:
+
+```go
+func main() {
+	show("27.5")
+	show("warm")
+	show("101")
+	show("30")
+}
+```
+
+`return` ใน `show` จบเฉพาะการเรียกครั้งนั้น แล้วกลับไปยัง `main` จึงเรียก `show` ครั้งถัดไปได้ เก็บ `parseCelsius` และ import ทั้งสองไว้เหมือนเดิม
+
+**ลองคิดก่อนรัน:** หลัง warm และ 101 จะยังอ่าน 30 สำเร็จหรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+accepted: 27.5 C
+ERROR: temperature must be a number: "warm"
+ERROR: temperature outside simulated range: 101.0
+accepted: 30.0 C
+```
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -55,6 +197,8 @@ func main() {
 	show("30")
 }
 ```
+
+</details>
 
 ### รันและตรวจผล
 

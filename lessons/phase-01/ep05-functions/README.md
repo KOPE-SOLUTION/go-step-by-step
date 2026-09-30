@@ -8,13 +8,140 @@
 
 **ฟังก์ชัน** คือชุดคำสั่งที่ตั้งชื่อเพื่อเรียกใช้ **parameter** คือตัวแปรที่ประกาศไว้เพื่อรับค่าเมื่อเรียกฟังก์ชัน และ **return value** คือผลที่ส่งกลับไปยังผู้เรียก เช่น รับ Celsius แล้วคืน Fahrenheit
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. ย้ายสูตรแปลงหน่วยจาก main ไปไว้ใน `toFahrenheit` แล้วลองเรียกด้วยค่า 0 และ 100
-2. เพิ่ม `status` ให้รับทั้งค่าการวัดและเกณฑ์เตือน เพื่อให้ผู้เรียกเลือกเกณฑ์ได้
-3. ให้ main รับผลมาแสดงตามตัวอย่าง ทดลองใช้ค่าการวัดเดียวกันกับเกณฑ์สองค่า เพื่อดูว่าฟังก์ชันใช้ซ้ำได้อย่างไร
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดขั้นที่ 1 แล้วแก้ต่อทีละขั้น บันทึกและรัน `go run main.go` จาก terminal ที่ `practics` ทุกครั้ง ก่อนดูผล ให้ลองคาดเดาสิ่งที่จะพิมพ์
+
+### 1. ทบทวนสูตรที่เขียนใน main
+
+เริ่ม `main.go` ด้วยสูตรจาก EP.3:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	celsius := 30.0
+	fahrenheit := celsius*9/5 + 32
+	fmt.Printf("%.1f C = %.1f F\n", celsius, fahrenheit)
+}
+```
+
+ตอนนี้การคำนวณกับการแสดงผลอยู่ใน `main` ถ้าต้องการใช้สูตรกับหลายค่า เราจะแยกสูตรเป็นฟังก์ชันในขั้นถัดไป
+
+**ลองคิดก่อนรัน:** 30 C ควรได้กี่ F?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+30.0 C = 86.0 F
+```
+
+</details>
+
+### 2. แยกฟังก์ชันรับค่าและคืนค่า
+
+เพิ่มฟังก์ชันนี้เหนือ `func main()` ไม่ใช่ภายใน `main`:
+
+```go
+func toFahrenheit(celsius float64) float64 {
+	return celsius*9/5 + 32
+}
+```
+
+แล้วแทน `main` เพื่อทดลองเรียกสองครั้ง:
+
+```go
+func main() {
+	fmt.Println(toFahrenheit(0))
+	fmt.Println(toFahrenheit(100))
+}
+```
+
+`celsius float64` เป็น parameter ที่รับค่า ส่วน `float64` หลังวงเล็บคือชนิดผลที่คืน `return` ส่งผลกลับให้ผู้เรียก แล้วจบการทำงานของฟังก์ชันครั้งนั้น
+
+**ลองคิดก่อนรัน:** เรียกด้วย 0 และ 100 จะได้ผลต่างกันอย่างไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+32
+212
+```
+
+</details>
+
+### 3. เพิ่มฟังก์ชันตรวจสถานะ
+
+เพิ่ม `status` เหนือ `main` โดยเก็บ `toFahrenheit` ไว้:
+
+```go
+func status(celsius, threshold float64) string {
+	if celsius >= threshold {
+		return "WARNING"
+	}
+	return "OK"
+}
+```
+
+แทน `main` เพื่อทดลองเกณฑ์สองค่า:
+
+```go
+func main() {
+	celsius := 30.0
+	fmt.Println(status(celsius, 30))
+	fmt.Println(status(celsius, 35))
+}
+```
+
+`celsius, threshold float64` รับสองค่าชนิดเดียวกัน `status` คืนข้อความให้ผู้เรียกใช้ต่อ โดยยังไม่พิมพ์เอง
+
+**ลองคิดก่อนรัน:** อุณหภูมิเดียวกัน แต่เกณฑ์ 30 กับ 35 จะได้สถานะเหมือนกันหรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+WARNING
+OK
+```
+
+</details>
+
+### 4. นำผลจากฟังก์ชันมาประกอบรายงาน
+
+แทนเฉพาะ `main` ด้วยรายงานนี้ โดยเก็บฟังก์ชันทั้งสองไว้:
+
+```go
+func main() {
+	celsius := 30.0
+	fmt.Printf("%.1f C = %.1f F [%s]\n",
+		celsius, toFahrenheit(celsius), status(celsius, 30))
+	fmt.Println("at threshold 35:", status(celsius, 35))
+}
+```
+
+เมื่อเรียกฟังก์ชันใน `Printf` Go จะคำนวณค่าที่คืนมาก่อนนำไปจัดรูปแบบ การแยกคำนวณออกจากการพิมพ์เป็นแนวทางออกแบบเพื่อให้ใช้ผลซ้ำได้
+
+**ลองคิดก่อนรัน:** ส่วนใดคำนวณ ส่วนใดตัดสินสถานะ และส่วนใดพิมพ์ข้อความ?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+30.0 C = 86.0 F [WARNING]
+at threshold 35: OK
+```
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -41,6 +168,8 @@ func main() {
 	fmt.Println("at threshold 35:", status(celsius, 35))
 }
 ```
+
+</details>
 
 ### รันและตรวจผล
 

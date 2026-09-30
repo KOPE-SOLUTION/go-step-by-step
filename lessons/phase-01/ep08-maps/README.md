@@ -8,13 +8,162 @@
 
 **map** เก็บข้อมูลเป็นคู่ โดย **key** คือค่าที่ใช้ค้นหา และ **value** คือค่าที่เก็บไว้ เช่น ใช้ชื่อ `sensor-01` เป็น key เพื่อค้นหาอุณหภูมิล่าสุด โดยไม่ต้องรู้ตำแหน่งแบบ slice
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. สร้าง map สองอุปกรณ์ แล้วอ่านค่าด้วย `latest["sensor-01"]`
-2. เพิ่มชื่อใหม่และกำหนดค่าของชื่อเดิมตามตัวอย่าง สังเกตว่าชื่อเดิมถูกอัปเดต ไม่เพิ่มรายการซ้ำ
-3. ค้นชื่อที่ไม่มี โดยรับผลลัพธ์สองค่าเป็น `value, ok` แล้วทดลองลบด้วย `delete` และนับจำนวนอุปกรณ์ด้วย `len`
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดขั้นที่ 1 แล้วแก้ต่อทีละขั้น บันทึกและรัน `go run main.go` จาก terminal ที่ `practics` ทุกครั้ง ก่อนดูผล ให้ลองคาดเดาสิ่งที่จะพิมพ์
+
+### 1. สร้าง map และค้นด้วยชื่อ
+
+เริ่ม `main.go` ด้วย map ของสองอุปกรณ์:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	latest := map[string]float64{
+		"sensor-01": 27.5,
+		"sensor-02": 0,
+	}
+	fmt.Println("sensor-01:", latest["sensor-01"])
+	fmt.Println("devices:", len(latest))
+}
+```
+
+`map[string]float64` ใช้ชื่อชนิด `string` เป็น key เพื่อค้นค่าชนิด `float64` และ `len(latest)` บอกจำนวน key
+
+**ลองคิดก่อนรัน:** ข้อมูลชุดนี้มีทั้งหมดกี่ชื่อ?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 27.5
+devices: 2
+```
+
+</details>
+
+### 2. อัปเดตชื่อเดิมและเพิ่มชื่อใหม่
+
+แทน `main` เพื่อเพิ่มคำสั่งกำหนดค่าตาม key:
+
+```go
+func main() {
+	latest := map[string]float64{
+		"sensor-01": 27.5,
+		"sensor-02": 0,
+	}
+	latest["sensor-01"] = 29
+	latest["sensor-03"] = 31
+	fmt.Println("sensor-01:", latest["sensor-01"])
+	fmt.Println("sensor-03:", latest["sensor-03"])
+	fmt.Println("devices:", len(latest))
+}
+```
+
+กำหนดค่าให้ key เดิมจะอัปเดตค่านั้น ส่วน key ใหม่จะเพิ่มรายการ ไม่ต้องใช้ `append` แบบ slice
+
+**ลองคิดก่อนรัน:** หลังสองคำสั่งนี้จะมี 3 หรือ 4 อุปกรณ์?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 29
+sensor-03: 31
+devices: 3
+```
+
+</details>
+
+### 3. แยกค่าศูนย์จริงออกจากชื่อที่ไม่พบ
+
+แทน `main` เพื่อรับทั้งค่าและผลว่าพบ key หรือไม่:
+
+```go
+func main() {
+	latest := map[string]float64{
+		"sensor-01": 27.5,
+		"sensor-02": 0,
+	}
+	latest["sensor-01"] = 29
+	latest["sensor-03"] = 31
+	value, ok := latest["sensor-02"]
+	fmt.Printf("sensor-02: value=%.1f found=%t\n", value, ok)
+	value, ok = latest["sensor-04"]
+	fmt.Printf("sensor-04: value=%.1f found=%t\n", value, ok)
+}
+```
+
+`ok` เป็น `bool` ที่เป็น `true` เมื่อพบ key การค้นครั้งที่สองใช้ `=` เพราะประกาศ `value` กับ `ok` แล้ว ถ้าไม่พบ key จะได้ zero value ซึ่งกรณีนี้คือ 0
+
+**ลองคิดก่อนรัน:** สองชื่ออาจให้ value เท่ากัน แต่ ok ต่างกันได้หรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-02: value=0.0 found=true
+sensor-04: value=0.0 found=false
+```
+
+</details>
+
+### 4. แยกการแสดงผลและทดลองลบข้อมูล
+
+เพิ่มฟังก์ชัน `show` เหนือ `main` เพื่อใช้ขั้นตอนค้นหาซ้ำ:
+
+```go
+func show(latest map[string]float64, deviceID string) {
+	value, ok := latest[deviceID]
+	if !ok {
+		fmt.Println(deviceID + ": not found")
+		return
+	}
+	fmt.Printf("%s: %.1f C\n", deviceID, value)
+}
+```
+
+แทน `main` เพื่อเรียก `show` และลบ `sensor-03` ด้วย `delete`:
+
+```go
+func main() {
+	latest := map[string]float64{
+		"sensor-01": 27.5,
+		"sensor-02": 0,
+	}
+	latest["sensor-01"] = 29
+	latest["sensor-03"] = 31
+	show(latest, "sensor-01")
+	show(latest, "sensor-02")
+	show(latest, "sensor-04")
+	delete(latest, "sensor-03")
+	fmt.Println("devices:", len(latest))
+}
+```
+
+`!ok` หมายถึงไม่พบ key จึงพิมพ์ `not found` แล้ว `return` ส่วน `delete` ลบคู่ key กับ value ของชื่อนั้น
+
+**ลองคิดก่อนรัน:** หลังเพิ่ม sensor-03 แล้วลบออก จะเหลือกี่อุปกรณ์?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 29.0 C
+sensor-02: 0.0 C
+sensor-04: not found
+devices: 2
+```
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -46,6 +195,8 @@ func main() {
 	fmt.Println("devices:", len(latest))
 }
 ```
+
+</details>
 
 ### รันและตรวจผล
 

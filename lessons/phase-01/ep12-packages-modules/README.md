@@ -10,15 +10,87 @@
 
 ชื่อ module เป็นส่วนต้นของ import path ไม่จำเป็นต้องเป็น repository บนอินเทอร์เน็ต ตัวอย่างใช้ `example.com` เป็นส่วนหนึ่งของชื่อสำหรับฝึก
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. ในโฟลเดอร์ `practics` เดิม ให้รัน `go mod init example.com/go-practice` **ครั้งเดียว** ถ้ามี `go.mod` แล้วให้อ่านชื่อ module เดิมก่อน ไม่ต้อง init ซ้ำ
-2. สร้างโฟลเดอร์ `sensor` ข้าง `main.go` แล้วสร้างไฟล์ `sensor/reading.go` ใส่โค้ดของ package `sensor` ด้านล่าง
-3. เปลี่ยน `main.go` เป็นโค้ดตัวอย่าง แล้วแก้ import ของ `sensor` ให้ใช้ชื่อ module ใน `practics/go.mod` ตามด้วย `/sensor` เช่น `example.com/go-practice/sensor` จากนั้นรัน `go run .` ที่ `practics`
+ฝึกต่อใน `practics` เดิม ใช้ `main.go` และค่อยเพิ่มไฟล์ตามแต่ละขั้น หากมีไฟล์ที่จะเปลี่ยนและต้องการเก็บงานเดิม ให้คัดลอกเป็น `.txt` ก่อน บทนี้จะเปลี่ยนคำสั่งรันเป็น `go run .` หลังเตรียม module
 
-### ตัวอย่างเมื่อทำครบ
+### 1. เริ่มจากฟังก์ชันในไฟล์เดียว
 
-ไฟล์ [main.go](main.go):
+เริ่ม `practics/main.go` ด้วยโค้ดนี้ แล้วรัน `go run main.go` จาก `practics`:
+
+```go
+package main
+
+import "fmt"
+
+func status(celsius, threshold float64) string {
+	if celsius >= threshold {
+		return "WARNING"
+	}
+	return "OK"
+}
+
+func main() {
+	fmt.Println("sensor-01:", status(30, 30))
+}
+```
+
+ตรวจว่ากฎสถานะทำงานก่อนแยกโฟลเดอร์ จะได้เปรียบเทียบผลหลังย้ายฟังก์ชัน
+
+**ลองคิดก่อนรัน:** ค่าเท่ากับเกณฑ์ควรเป็นสถานะอะไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: WARNING
+```
+
+</details>
+
+### 2. เตรียม module ให้รู้จัก package ในโครงการ
+
+เปิด terminal ที่ `practics` ถ้ายังไม่มี `go.mod` ให้รันครั้งเดียว:
+
+```shell
+go mod init example.com/go-practice
+```
+
+ถ้ามี `go.mod` อยู่แล้ว ให้ใช้ชื่อหลังคำว่า `module` ในไฟล์นั้น ไม่ต้อง init ซ้ำ จากนั้นรัน:
+
+```shell
+go run .
+```
+
+`go mod init` สร้าง `go.mod` ให้ ส่วนบรรทัด `go` จะอิงเวอร์ชันที่ติดตั้ง ชื่อ module เป็นส่วนต้นของ import ในขั้นถัดไป การเตรียม module ยังไม่เปลี่ยนกฎสถานะ
+
+**ลองคิดก่อนรัน:** ก่อนแยก package ผลควรต่างจากขั้นแรกหรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: WARNING
+```
+
+</details>
+
+### 3. ย้ายกฎไป package sensor แล้วเรียกจาก main
+
+สร้างโฟลเดอร์ `practics/sensor` แล้วสร้าง `reading.go` ข้างใน ใส่โค้ดนี้:
+
+```go
+package sensor
+
+func Status(celsius, threshold float64) string {
+	if celsius >= threshold {
+		return "WARNING"
+	}
+	return "OK"
+}
+```
+
+แทน `practics/main.go` ทั้งไฟล์ด้วยโค้ดนี้ ถ้า module เดิมชื่ออื่น ให้เปลี่ยนส่วน `example.com/go-practice` ให้ตรงกับ `go.mod`:
 
 ```go
 package main
@@ -26,7 +98,66 @@ package main
 import (
 	"fmt"
 
-	"example.com/go-course/phase01/ep12-packages-modules/sensor"
+	"example.com/go-practice/sensor"
+)
+
+func main() {
+	fmt.Println("sensor-01:", sensor.Status(30, 30))
+}
+```
+
+เมื่อย้ายแล้ว ฟังก์ชันอยู่ใน `package sensor` และเปลี่ยนชื่อเป็น `Status` ตัวใหญ่เพื่อให้เรียกข้าม package ได้ เรียกว่า exported ใช้ `sensor.Status(...)` แล้วรัน `go run .` จาก `practics`
+
+**ลองคิดก่อนรัน:** การย้ายไฟล์เปลี่ยนผลของกฎเดิมหรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: WARNING
+```
+
+</details>
+
+### 4. เรียกกฎเดียวกันกับอุปกรณ์อีกตัว
+
+แทนเฉพาะ `main` เพื่อเพิ่มรายการที่สอง เก็บ import ของ module งานฝึกไว้:
+
+```go
+func main() {
+	fmt.Println("sensor-01:", sensor.Status(30, 30))
+	fmt.Println("sensor-02:", sensor.Status(28, 30))
+}
+```
+
+รัน `go run .` จาก `practics` อีกครั้ง ทั้งสองรายการใช้ฟังก์ชันเดียวกันจาก package `sensor`
+
+**ลองคิดก่อนรัน:** sensor-02 ที่อุณหภูมิ 28 ควรมีสถานะอะไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: WARNING
+sensor-02: OK
+```
+
+</details>
+
+### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
+
+ไฟล์ `practics/main.go` สำหรับ module `example.com/go-practice`:
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"example.com/go-practice/sensor"
 )
 
 func main() {
@@ -48,6 +179,10 @@ func Status(celsius, threshold float64) string {
 }
 ```
 
+ตัวอย่างอ้างอิงใน [main.go](main.go) ใช้ module ของหลักสูตร จึงมี import path ต่างจากงานฝึก แต่เรียกกฎเดียวกัน
+
+</details>
+
 ### รันและตรวจผล
 
 งานฝึก: เปิด terminal ที่ `practics` แล้วรัน:
@@ -56,7 +191,7 @@ func Status(celsius, threshold float64) string {
 go run .
 ```
 
-**ถ้า `practics/go.mod` ระบุ `module example.com/go-practice` ให้ใช้ import `example.com/go-practice/sensor`** ส่วนตัวอย่างด้านบนใช้ชื่อ module ของหลักสูตร จึงมี import path ต่างกัน
+**ชื่อส่วนต้นของ import ต้องตรงกับ `module` ใน `practics/go.mod`** เช่น `example.com/go-practice/sensor`
 
 ถ้ารันตัวอย่างที่ให้มาโดยตรง ให้เปิด terminal ที่ `lessons/phase-01/ep12-packages-modules` แล้วใช้ `go run .` ใช้ได้ทั้ง terminal ใน VS Code, PowerShell และ cmd
 

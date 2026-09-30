@@ -10,13 +10,142 @@
 
 **index** คือตำแหน่ง เริ่มจาก 0 ส่วน `len` บอกจำนวนสมาชิกปัจจุบัน
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. สร้าง `initial` แบบ array แล้วอ่าน `initial[0]` และ `len(initial)`
-2. คัดลอกค่าจาก `initial` มาเก็บใน slice ชื่อ `readings` ด้วย `range` และ `append` แล้วเพิ่มค่า 32 ตามตัวอย่าง
-3. ใช้ `range` สรุปค่าเฉลี่ยและนับคำเตือน ลองทำ slice ว่างแล้วตรวจว่าส่วนค่าเฉลี่ยทำงานอย่างไร
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดขั้นที่ 1 แล้วแก้ต่อทีละขั้น บันทึกและรัน `go run main.go` จาก terminal ที่ `practics` ทุกครั้ง ก่อนดูผล ให้ลองคาดเดาสิ่งที่จะพิมพ์
+
+### 1. เก็บสามค่าใน array
+
+เริ่ม `main.go` ด้วย array สามสมาชิก:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	initial := [3]float64{27.5, 30.0, 28.5}
+	fmt.Println("first:", initial[0])
+	fmt.Println("count:", len(initial))
+}
+```
+
+`[3]float64` ระบุจำนวนและชนิดของสมาชิก `initial[0]` อ่านสมาชิกแรก เพราะ index เริ่มจาก 0
+
+**ลองคิดก่อนรัน:** สมาชิกสุดท้ายมี index เป็น 2 หรือ 3?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+first: 27.5
+count: 3
+```
+
+</details>
+
+### 2. อ่านสมาชิกทีละตัวด้วย range
+
+แทน `main` เพื่อวนอ่าน array:
+
+```go
+func main() {
+	initial := [3]float64{27.5, 30.0, 28.5}
+	for index, value := range initial {
+		fmt.Printf("%d: %.1f C\n", index, value)
+	}
+}
+```
+
+`range` ใช้กับ `for` เพื่ออ่านสมาชิกแต่ละตัว โดยได้ทั้งตำแหน่ง `index` และสำเนาค่า `value` จึงไม่ต้องเขียนตัวนับเพิ่มเอง
+
+**ลองคิดก่อนรัน:** ลูปนี้จะทำงานกี่รอบ?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+0: 27.5 C
+1: 30.0 C
+2: 28.5 C
+```
+
+</details>
+
+### 3. สร้าง slice แล้วเพิ่มสมาชิก
+
+แทน `main` เพื่อคัดลอกค่าเข้า slice แล้วเพิ่มอีกหนึ่งค่า:
+
+```go
+func main() {
+	initial := [3]float64{27.5, 30.0, 28.5}
+	readings := []float64{}
+	for _, value := range initial {
+		readings = append(readings, value)
+	}
+	readings = append(readings, 32.0)
+	fmt.Println(readings)
+	fmt.Println("count:", len(readings))
+}
+```
+
+`[]float64{}` สร้าง slice ว่าง `_` ทิ้ง index ที่ไม่ได้ใช้ ส่วน `append` คืน slice หลังเพิ่มสมาชิก จึงต้องรับผลกลับเข้า `readings`
+
+**ลองคิดก่อนรัน:** เพิ่มค่า 32 แล้วจำนวนสมาชิกจะเป็นเท่าไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+[27.5 30 28.5 32]
+count: 4
+```
+
+</details>
+
+### 4. รวมค่าและนับรายการที่ถึงเกณฑ์เตือน
+
+ใน `main` แทนสองบรรทัดท้ายที่ใช้ `fmt.Println` ด้วยส่วนสรุปนี้ เก็บส่วนสร้างและเพิ่มสมาชิกใน `readings` ไว้:
+
+```go
+total := 0.0
+warnings := 0
+for index, value := range readings {
+	total += value
+	if value >= 30 {
+		warnings++
+	}
+	fmt.Printf("%d: %.1f C\n", index, value)
+}
+if len(readings) > 0 {
+	fmt.Printf("average: %.1f C, warnings: %d\n",
+		total/float64(len(readings)), warnings)
+} else {
+	fmt.Println("no readings")
+}
+```
+
+ใช้วิธีสะสมผลรวมจาก EP.4 แต่ครั้งนี้ `len(readings)` คือจำนวนค่าที่นำมาคำนวณทั้งหมด ส่วน `warnings` นับเฉพาะค่าตั้งแต่ 30 และกรณี slice ว่างจะไปที่ `else`
+
+**ลองคิดก่อนรัน:** มีคำเตือนกี่รายการ และค่าเฉลี่ยเป็นเท่าไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+0: 27.5 C
+1: 30.0 C
+2: 28.5 C
+3: 32.0 C
+average: 29.5 C, warnings: 2
+```
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -50,6 +179,8 @@ func main() {
 	}
 }
 ```
+
+</details>
 
 ### รันและตรวจผล
 

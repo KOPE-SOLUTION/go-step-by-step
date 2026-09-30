@@ -10,13 +10,220 @@
 
 ในบทนี้ใช้กฎเดิม: ตั้งแต่เกณฑ์ขึ้นไปเป็น WARNING ก่อนเขียน test ให้ตอบผลของ 29.9, 30 และ 30.1 ที่เกณฑ์ 30
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. ใส่โค้ดตัวอย่างด้านล่างใน `practics/main.go` และใช้ `go.mod` เดิมจาก EP.12 เก็บ `sensor/reading.go` เดิมไว้ได้ เพราะโค้ดบทนี้ไม่ได้ import package `sensor`
-2. สร้าง `main_test.go` ข้าง `main.go` เริ่มจาก test กรณีเท่ากับเกณฑ์หนึ่งกรณี แล้วค่อยเพิ่มตารางตามตัวอย่าง
-3. รัน `go test -v .` จาก `practics` จากนั้นเปลี่ยน `>=` ใน `status` เป็น `>` แล้วรัน test อีกครั้ง กรณี `equal` ต้องไม่ผ่าน ให้อ่านผลจริง (`got`) เทียบกับผลที่ต้องการ (`want`) แล้วแก้กลับเป็น `>=` ก่อนรันซ้ำ
+ใช้ `practics` และ `go.mod` เดิมจาก EP.12 บทนี้เริ่มจาก `main.go` แล้วค่อยสร้าง `main_test.go` ข้างกัน เก็บ `sensor/reading.go` เดิมไว้ได้เพราะบทนี้ไม่ได้ import package นั้น
+
+### 1. ตรวจฟังก์ชันด้วยการรันโปรแกรมก่อน
+
+แทน `practics/main.go` ด้วยกฎนี้ แล้วรัน `go run .` จาก `practics`:
+
+```go
+package main
+
+import "fmt"
+
+func status(celsius, threshold float64) string {
+	if celsius >= threshold {
+		return "WARNING"
+	}
+	return "OK"
+}
+
+func main() {
+	fmt.Println("29.9 C:", status(29.9, 30))
+	fmt.Println("30.0 C:", status(30, 30))
+}
+```
+
+เรายังอ่านผลเองอยู่ ขั้นต่อไปจะเขียนโค้ดทดสอบให้ตรวจผลแทน
+
+**ลองคิดก่อนรัน:** 29.9 กับ 30 ที่เกณฑ์ 30 ควรได้สถานะอะไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+29.9 C: OK
+30.0 C: WARNING
+```
+
+</details>
+
+### 2. เขียน test เพียงกรณีเดียว
+
+สร้าง `practics/main_test.go` แล้วใส่โค้ดนี้ หากมีไฟล์เดิมให้เก็บสำเนาก่อนแทน:
+
+```go
+package main
+
+import "testing"
+
+func TestStatusEqual(t *testing.T) {
+	got := status(30, 30)
+	want := "WARNING"
+	if got != want {
+		t.Errorf("status(30, 30) = %q; want %q", got, want)
+	}
+}
+```
+
+รันจาก terminal ที่ `practics`:
+
+```shell
+go test -v .
+```
+
+ไฟล์ลงท้าย `_test.go` และฟังก์ชัน `TestStatusEqual` รับ `*testing.T` เพื่อรายงานผล `got` คือผลจริง ส่วน `want` คือผลที่ต้องการ `t.Errorf` ทำให้ test ไม่ผ่านเมื่อสองค่าไม่ตรงกัน
+
+**ลองคิดก่อนรัน:** กรณีเท่ากับเกณฑ์นี้ควรผ่านหรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+ควรเห็น `PASS: TestStatusEqual` และ `PASS` ส่วนเวลาและชื่อ package อาจต่างกัน
+
+</details>
+
+### 3. จงใจทำกฎผิดเพื่อดูว่า test ตรวจพบไหม
+
+ใน `main.go` เปลี่ยนเฉพาะบรรทัดเงื่อนไขของ `status` เป็น:
+
+```go
+if celsius > threshold {
+```
+
+บันทึกแล้วรัน test จาก `practics` อีกครั้ง:
+
+```shell
+go test -v .
+```
+
+นี่เป็นการทดลองให้ test ไม่ผ่าน ลองอ่านผลจริงเทียบกับผลที่ต้องการ ไม่แก้ `want` เพียงเพื่อให้ผ่าน
+
+**ลองคิดก่อนรัน:** ค่า 30 เท่ากับเกณฑ์ แต่เงื่อนไขใหม่จะคืนอะไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+ต้องเห็น `FAIL: TestStatusEqual` พร้อมข้อความ `status(30, 30) = "OK"; want "WARNING"`
+
+</details>
+
+### 4. แก้กฎกลับและตรวจซ้ำ
+
+แก้บรรทัดเดิมใน `status` กลับเป็น:
+
+```go
+if celsius >= threshold {
+```
+
+บันทึกแล้วรัน test ซ้ำ:
+
+```shell
+go test -v .
+```
+
+เมื่อกฎยังเป็น “ตั้งแต่เกณฑ์ขึ้นไป” เราแก้ตัวโปรแกรมให้ตรงกฎ โดยคงผลที่ต้องการใน test ไว้
+
+**ลองคิดก่อนรัน:** เหตุใดจึงควรเห็น test ผ่านหลังแก้?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+ควรกลับมาเห็น `PASS: TestStatusEqual` และ `PASS`
+
+</details>
+
+### 5. เพิ่มหลายกรณีด้วย slice และลูป
+
+แทน `main_test.go` ทั้งไฟล์ด้วยตารางข้อมูลทดสอบ แล้วรัน `go test -v .`:
+
+```go
+package main
+
+import "testing"
+
+func TestStatus(t *testing.T) {
+	cases := []struct {
+		name      string
+		celsius   float64
+		threshold float64
+		want      string
+	}{
+		{"below", 29.9, 30, "OK"},
+		{"equal", 30, 30, "WARNING"},
+		{"above", 30.1, 30, "WARNING"},
+		{"custom threshold", 30, 35, "OK"},
+	}
+	for _, tc := range cases {
+		got := status(tc.celsius, tc.threshold)
+		if got != tc.want {
+			t.Errorf("%s: got %q; want %q", tc.name, got, tc.want)
+		}
+	}
+}
+```
+
+`cases` เป็น slice ของ struct ที่ประกาศชนิดไว้ตรงนั้น แต่ละรายการเก็บชื่อ ข้อมูลเข้า และผลที่ต้องการ ใช้ `range` ทดสอบทีละรายการด้วยขั้นตอนเดิม
+
+**ลองคิดก่อนรัน:** กรณีใดตรวจค่าขอบเขต และกรณีใดตรวจว่าเลือกเกณฑ์อื่นได้?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+ควรเห็น `PASS: TestStatus` หลังตรวจครบสี่กรณี
+
+</details>
+
+### 6. ตั้งชื่อผลทดสอบแต่ละกรณีด้วย t.Run
+
+`t.Run` รับชื่อกรณีกับฟังก์ชันที่จะทดสอบ `func(t *testing.T) { ... }` คือฟังก์ชันที่ไม่ตั้งชื่อและส่งให้ `t.Run` เรียก แทน `main_test.go` ทั้งไฟล์ด้วยเวอร์ชันนี้ แล้วรัน `go test -v .`:
+
+```go
+package main
+
+import "testing"
+
+func TestStatus(t *testing.T) {
+	cases := []struct {
+		name      string
+		celsius   float64
+		threshold float64
+		want      string
+	}{
+		{"below", 29.9, 30, "OK"},
+		{"equal", 30, 30, "WARNING"},
+		{"above", 30.1, 30, "WARNING"},
+		{"custom threshold", 30, 35, "OK"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := status(tc.celsius, tc.threshold)
+			if got != tc.want {
+				t.Errorf("status(%v, %v) = %q; want %q",
+					tc.celsius, tc.threshold, got, tc.want)
+			}
+		})
+	}
+}
+```
+
+ข้อมูลทดสอบยังเป็นสี่กรณีเดิม แต่ผลแยกชื่อ `below`, `equal`, `above` และ `custom_threshold` ชัดขึ้น เมื่อมีกรณีผิดจึงหาได้ง่าย
+
+**ลองคิดก่อนรัน:** ตอนจงใจเปลี่ยน >= เป็น > กรณีชื่อใดควรตรวจพบ?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+ควรเห็น `PASS` ของ `TestStatus` และกรณีย่อยทั้งสี่ ชื่อที่มีช่องว่างจะแสดงเป็น `_`
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -69,6 +276,8 @@ func TestStatus(t *testing.T) {
 	}
 }
 ```
+
+</details>
 
 </details>
 

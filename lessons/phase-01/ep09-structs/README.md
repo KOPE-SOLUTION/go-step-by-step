@@ -8,13 +8,137 @@
 
 **struct** คือชนิดข้อมูลที่รวมหลายช่องไว้ด้วยกัน แต่ละช่องเรียกว่า **field** เราจะสร้างชนิด `Reading` เพื่อเก็บชื่ออุปกรณ์ `DeviceID` และอุณหภูมิ `Celsius` ไว้ด้วยกันในข้อมูลหนึ่งรายการ
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. สร้างชนิด `Reading` และตัวแปร `reading` สำหรับเก็บข้อมูลหนึ่งรายการ แล้วลองอ่านและแก้ `reading.Celsius`
-2. เพิ่มเป็น `[]Reading` และส่งแต่ละรายการให้ `status` เพื่อแสดงรายงานตามตัวอย่าง
-3. ทดลองคัดลอก struct แล้วเปลี่ยนเฉพาะสำเนา เดาก่อนว่าต้นฉบับจะเปลี่ยนด้วยหรือไม่
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดขั้นที่ 1 แล้วแก้ต่อทีละขั้น บันทึกและรัน `go run main.go` จาก terminal ที่ `practics` ทุกครั้ง ก่อนดูผล ให้ลองคาดเดาสิ่งที่จะพิมพ์
+
+### 1. สร้างข้อมูลการวัดหนึ่งรายการ
+
+เริ่ม `main.go` ด้วยชนิด `Reading` และค่าหนึ่งรายการ:
+
+```go
+package main
+
+import "fmt"
+
+type Reading struct {
+	DeviceID string
+	Celsius  float64
+}
+
+func main() {
+	reading := Reading{DeviceID: "sensor-01", Celsius: 27.5}
+	fmt.Printf("%s: %.1f C\n", reading.DeviceID, reading.Celsius)
+}
+```
+
+`type Reading struct` ประกาศชนิดใหม่ ส่วน `Reading{...}` สร้างค่าชนิดนั้น อ่านแต่ละ field ด้วยจุด เช่น `reading.Celsius`
+
+**ลองคิดก่อนรัน:** ชื่ออุปกรณ์และอุณหภูมิอยู่ในตัวแปรเดียวกันอย่างไร?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 27.5 C
+```
+
+</details>
+
+### 2. แก้ field ของรายการนั้น
+
+ใน `main` แทนบรรทัดพิมพ์ด้วยสองบรรทัดนี้ เพื่อแก้ค่าก่อนพิมพ์:
+
+```go
+reading.Celsius = 30
+fmt.Printf("%s: %.1f C\n", reading.DeviceID, reading.Celsius)
+```
+
+การกำหนดค่าให้ `reading.Celsius` เปลี่ยนเฉพาะอุณหภูมิ ชื่อใน `DeviceID` ยังคงเดิม
+
+**ลองคิดก่อนรัน:** field ใดเปลี่ยนและ field ใดคงเดิม?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 30.0 C
+```
+
+</details>
+
+### 3. เก็บหลาย struct และทำรายงาน
+
+เพิ่ม `status` เหนือ `main` คราวนี้รับ `Reading` ทั้งรายการ:
+
+```go
+func status(reading Reading) string {
+	if reading.Celsius >= 30 {
+		return "WARNING"
+	}
+	return "OK"
+}
+```
+
+แทน `main` ด้วย slice ของ `Reading` และลูปพิมพ์รายงาน:
+
+```go
+func main() {
+	readings := []Reading{
+		{DeviceID: "sensor-01", Celsius: 27.5},
+		{DeviceID: "sensor-02", Celsius: 30},
+	}
+	for _, reading := range readings {
+		fmt.Printf("%s: %.1f C [%s]\n",
+			reading.DeviceID, reading.Celsius, status(reading))
+	}
+}
+```
+
+`[]Reading` เก็บข้อมูลการวัดหลายรายการ `range` ส่งสำเนาแต่ละรายการมาให้ `reading` แล้ว `status` อ่านอุณหภูมิจาก field
+
+**ลองคิดก่อนรัน:** รายการไหนควรมีสถานะ WARNING?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 27.5 C [OK]
+sensor-02: 30.0 C [WARNING]
+```
+
+</details>
+
+### 4. คัดลอกแล้วเปลี่ยนเฉพาะสำเนา
+
+เพิ่มโค้ดนี้ท้าย `main` หลังลูป โดยวางก่อนปีกกาปิดของ `main`:
+
+```go
+original := readings[0]
+copyReading := original
+copyReading.Celsius = 99
+fmt.Printf("original: %.1f, copy: %.1f\n", original.Celsius, copyReading.Celsius)
+```
+
+`copyReading := original` คัดลอกค่าของ struct อีกชุด ในตัวอย่างนี้ field เป็น `string` และ `float64` การแก้อุณหภูมิในสำเนาจึงไม่เปลี่ยนต้นฉบับ
+
+**ลองคิดก่อนรัน:** original จะเป็น 27.5 หรือ 99 หลังแก้สำเนา?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 27.5 C [OK]
+sensor-02: 30.0 C [WARNING]
+original: 27.5, copy: 99.0
+```
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -50,6 +174,8 @@ func main() {
 	fmt.Printf("original: %.1f, copy: %.1f\n", original.Celsius, copyReading.Celsius)
 }
 ```
+
+</details>
 
 ### รันและตรวจผล
 

@@ -8,13 +8,157 @@
 
 **interface** ในบทนี้กำหนดว่าค่าที่นำมาใช้ต้องมี method อะไรบ้าง เราจะสร้าง interface ชื่อ `Reader` ที่กำหนด method `Read() (float64, error)` ทำให้ `show` รับได้ทั้งตัวจำลองที่คืนอุณหภูมิและตัวจำลองที่คืน error
 
-## ลงมือทำ
+## ลงมือทำทีละขั้น
 
-1. สร้าง `FixedSensor` พร้อม method `Read` แล้วลองเรียก `Read` โดยตรงก่อน
-2. สร้าง interface `Reader` แล้วเปลี่ยน `show` ให้รับ `Reader` แทน `FixedSensor`
-3. เพิ่ม `FailedSensor` แล้วเรียก `show` กับตัวจำลองแต่ละตัวตามตัวอย่าง เดาก่อนว่ารายการที่สามจะยังแสดงได้หรือไม่
+ใช้ `practics/main.go` ไฟล์เดิม เริ่มด้วยโค้ดขั้นที่ 1 แล้วแก้ต่อทีละขั้น บันทึกและรัน `go run main.go` จาก terminal ที่ `practics` ทุกครั้ง ก่อนดูผล ให้ลองคาดเดาสิ่งที่จะพิมพ์
+
+### 1. สร้างตัวจำลองและเรียก Read โดยตรง
+
+เริ่ม `main.go` ด้วยตัวจำลองที่คืนค่าที่กำหนดไว้:
+
+```go
+package main
+
+import "fmt"
+
+type FixedSensor struct {
+	Celsius float64
+}
+
+func (s FixedSensor) Read() (float64, error) {
+	return s.Celsius, nil
+}
+
+func main() {
+	sensor := FixedSensor{Celsius: 27.5}
+	value, err := sensor.Read()
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		return
+	}
+	fmt.Printf("%.1f C\n", value)
+}
+```
+
+`Read` เป็น method ที่คืนอุณหภูมิกับ error เหมือนรูปแบบที่เรียนใน EP.6 ตัวจำลองนี้คืน `nil` เพราะกำหนดให้อ่านสำเร็จ
+
+**ลองคิดก่อนรัน:** ค่าที่อ่านได้มาจาก field ใด?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+27.5 C
+```
+
+</details>
+
+### 2. แยกการอ่านและแสดงผลเป็น show
+
+เพิ่ม `show` เหนือ `main` โดยเริ่มจากรับชนิด `FixedSensor` โดยตรง:
+
+```go
+func show(name string, reader FixedSensor) {
+	value, err := reader.Read()
+	if err != nil {
+		fmt.Printf("%s: ERROR: %v\n", name, err)
+		return
+	}
+	fmt.Printf("%s: %.1f C\n", name, value)
+}
+```
+
+แทน `main` ให้เรียก `show`:
+
+```go
+func main() {
+	show("sensor-01", FixedSensor{Celsius: 27.5})
+}
+```
+
+`show` รวมการเรียก `Read` ตรวจ error และพิมพ์ผลไว้ด้วยกัน แต่ตอนนี้ parameter ยังรับได้เฉพาะ `FixedSensor`
+
+**ลองคิดก่อนรัน:** การย้ายโค้ดเข้า show ควรเปลี่ยนอุณหภูมิที่ได้หรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 27.5 C
+```
+
+</details>
+
+### 3. กำหนด interface สำหรับสิ่งที่ show ต้องใช้
+
+เพิ่ม `Reader` ไว้นอกฟังก์ชัน เช่น เหนือ `main`:
+
+```go
+type Reader interface {
+	Read() (float64, error)
+}
+```
+
+เปลี่ยนเฉพาะบรรทัดประกาศ `show` เก็บคำสั่งข้างในเหมือนเดิม:
+
+```go
+func show(name string, reader Reader) {
+```
+
+`Reader` กำหนดว่าต้องมี method `Read` ตามรูปแบบนี้ `FixedSensor` มี method ตรงกันอยู่แล้ว จึงยังส่งให้ `show` ได้โดยไม่ต้องประกาศเพิ่มว่ารองรับ interface
+
+**ลองคิดก่อนรัน:** หลังเปลี่ยนชนิด parameter โค้ดใน main ต้องเปลี่ยนด้วยหรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 27.5 C
+```
+
+</details>
+
+### 4. เพิ่มตัวจำลองที่คืน error แล้วใช้ show เดิม
+
+เพิ่มชนิดและ method นี้เหนือ `main`:
+
+```go
+type FailedSensor struct{}
+
+func (s FailedSensor) Read() (float64, error) {
+	return 0, fmt.Errorf("simulated read failure")
+}
+```
+
+แทน `main` เพื่ออ่านตัวจำลองสามตัวตามลำดับ:
+
+```go
+func main() {
+	show("sensor-01", FixedSensor{Celsius: 27.5})
+	show("sensor-02", FailedSensor{})
+	show("sensor-03", FixedSensor{Celsius: 30})
+}
+```
+
+`struct{}` ไม่มี field เพราะตัวจำลองนี้ไม่ต้องเก็บค่า `FailedSensor` ก็มี `Read` ตรงตาม interface จึงใช้ `show` เดิมได้ การอ่านยังทำทีละตัว ไม่ใช่งานพร้อมกัน
+
+**ลองคิดก่อนรัน:** เมื่อ sensor-02 ล้มเหลว จะยังแสดง sensor-03 หรือไม่?
+
+<details>
+<summary>รันแล้วค่อยเปิดตรวจผล</summary>
+
+```text
+sensor-01: 27.5 C
+sensor-02: ERROR: simulated read failure
+sensor-03: 30.0 C
+```
+
+</details>
 
 ### ตัวอย่างเมื่อทำครบ
+
+<details>
+<summary>เปิดเทียบโค้ดฉบับเต็มหลังทำครบทุกขั้น</summary>
 
 ไฟล์ [main.go](main.go):
 
@@ -56,6 +200,8 @@ func main() {
 	show("sensor-03", FixedSensor{Celsius: 30})
 }
 ```
+
+</details>
 
 ### รันและตรวจผล
 
