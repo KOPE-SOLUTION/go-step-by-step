@@ -155,6 +155,60 @@ sensor-03: 30.0 C
 
 </details>
 
+### มองภาพความสัมพันธ์และลำดับการทำงาน
+
+**ความสัมพันธ์: ใครใช้ Reader ได้บ้าง?**
+
+`Reader` กำหนดว่าต้องมี `Read() (float64, error)` ทั้งสองชนิดมี method ตรงกัน จึงส่งให้ `show` ได้ โดยไม่ต้องแก้โค้ดภายใน `show`
+
+```mermaid
+flowchart TB
+    Fixed["FixedSensor<br/>Read คืนอุณหภูมิและ nil"]
+    Failed["FailedSensor<br/>Read คืน 0 และ error"]
+    Reader["Reader — interface<br/>กำหนด Read() (float64, error)"]
+    Show["show(name, reader Reader)<br/>เรียก reader.Read()"]
+
+    Fixed -.->|"มี method ตรงตามข้อกำหนด"| Reader
+    Failed -.->|"มี method ตรงตามข้อกำหนด"| Reader
+    Show -->|"กำหนดชนิดพารามิเตอร์เป็น"| Reader
+```
+
+ลูกศรด้านบนแสดงความสัมพันธ์ของชนิดข้อมูล ส่วน `Reader` เป็นข้อกำหนด วิธีอ่านจริงอยู่ใน method ของแต่ละชนิด
+
+**ลำดับตอนรัน: ตัวที่สองล้มเหลว แล้วเกิดอะไรต่อ?**
+
+อ่านภาพจากบนลงล่าง ลูกศรเส้นทึบคือการเรียกฟังก์ชันหรือ method ส่วนเส้นประคือการส่งผลหรือกลับไปยังผู้เรียก
+
+```mermaid
+sequenceDiagram
+    participant Main as main
+    participant Show as show
+    participant Fixed as FixedSensor
+    participant Failed as FailedSensor
+
+    Main->>Show: sensor-01 — ส่ง FixedSensor ค่า 27.5
+    Show->>Fixed: Read()
+    Fixed-->>Show: 27.5, nil
+    Note over Show: แสดง sensor-01: 27.5 C
+    Show-->>Main: จบ show ครั้งนี้
+
+    Main->>Show: sensor-02 — ส่ง FailedSensor
+    Show->>Failed: Read()
+    Failed-->>Show: 0, error
+    Note over Show: แสดงข้อความ ERROR
+    Show-->>Main: return ออกจาก show ครั้งนี้
+
+    Main->>Show: sensor-03 — ส่ง FixedSensor ค่า 30
+    Show->>Fixed: Read()
+    Fixed-->>Show: 30, nil
+    Note over Show: แสดง sensor-03: 30.0 C
+    Show-->>Main: จบ show ครั้งนี้
+```
+
+`show` เรียก `Read` ของค่าที่ได้รับในแต่ละครั้ง คอลัมน์ `FixedSensor` จึงใช้แสดงการอ่านของทั้ง sensor-01 และ sensor-03 ซึ่งเป็นคนละค่าแต่ชนิดเดียวกัน
+
+เมื่อ sensor-02 คืน error คำสั่ง `return` จบเฉพาะการเรียก `show` ครั้งนั้น จากนั้น `main` เรียก `show` สำหรับ sensor-03 ต่อ ทุกครั้งทำตามลำดับ
+
 ### ตัวอย่างเมื่อทำครบ
 
 <details>
