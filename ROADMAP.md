@@ -17,7 +17,7 @@ Phase 1 มีเนื้อหาพร้อมฝึก 14 EP ส่วน P
 | 1 | [เขียนและรันโปรแกรม Go แรก](lessons/phase-01/ep01-hello-go/README.md) | อ่านโค้ดและตรวจปัญหาจากเครื่องมือ |
 | 2 | [เก็บข้อมูลด้วยตัวแปรและชนิดข้อมูล](lessons/phase-01/ep02-variables-types/README.md) | เก็บข้อมูลและแสดงค่าการวัด |
 | 3 | [คำนวณและตรวจเงื่อนไขของข้อมูล](lessons/phase-01/ep03-calculations-conditions/README.md) | ตรวจข้อมูลที่รับมาและกำหนดสถานะ |
-| 4 | [ทำซ้ำและสรุปค่าการวัดด้วย for](lessons/phase-01/ep04-loops/README.md) | ประมวลผลหลายรายการ |
+| 4 | [ทำซ้ำและสรุปค่าการวัดด้วย for](lessons/phase-01/ep04-loops/README.md) | เลือกทำซ้ำตามจำนวนรอบหรือเงื่อนไข และประมวลผลหลายรายการ |
 | 5 | [แยกงานด้วยฟังก์ชัน รับค่าและคืนค่า](lessons/phase-01/ep05-functions/README.md) | กฎที่ใช้ซ้ำได้ |
 | 6 | [รับมือข้อมูลผิดด้วย error](lessons/phase-01/ep06-errors/README.md) | จัดการข้อมูลผิดและงานที่ไม่สำเร็จ |
 | 7 | [จัดการรายการข้อมูลด้วย array และ slice](lessons/phase-01/ep07-arrays-slices/README.md) | รายการอุปกรณ์และค่าการวัด |

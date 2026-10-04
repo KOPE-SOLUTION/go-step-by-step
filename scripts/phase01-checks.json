@@ -38,7 +38,7 @@
       {
         "path": ".",
         "expected": [
-          "sensor-01: 28.2 C",
+          "sensor-01: 28.3 C",
           "connected=true retries=0",
           "label=\"\" failed=false"
         ]
@@ -54,7 +54,7 @@
       {
         "path": "./solutions/02",
         "expected": [
-          "sensor-01: 28.2 C",
+          "sensor-01: 28.3 C",
           "connected=true retries=2",
           "label=\"backup\" failed=true"
         ]

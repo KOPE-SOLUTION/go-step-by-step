@@ -4,7 +4,7 @@
 
 ## ข้อ 1
 
-เปลี่ยนค่า `deviceID` เป็น `"sensor-02"` แก้บรรทัด `celsius = 28.25` ให้เป็น `celsius = 26.75` และแสดงอุณหภูมิเป็นทศนิยมสองตำแหน่ง
+เปลี่ยนค่า `deviceID` เป็น `"sensor-02"` แก้บรรทัด `celsius = 28.26` ให้เป็น `celsius = 26.75` และแสดงอุณหภูมิเป็นทศนิยมสองตำแหน่ง
 
 ดู [main.go](01/main.go)
 
@@ -27,7 +27,7 @@ label="" failed=false
 รันจาก `lessons/phase-01/ep02-variables-types/solutions/02` ด้วย `go run .`
 
 ```text
-sensor-01: 28.2 C
+sensor-01: 28.3 C
 connected=true retries=2
 label="backup" failed=true
 ```

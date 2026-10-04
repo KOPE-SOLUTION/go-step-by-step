@@ -10,7 +10,7 @@ func main() {
 	var retries int
 	var label string
 	var failed bool
-	celsius = 28.25
+	celsius = 28.26
 	retries = 2
 	label = "backup"
 	failed = true

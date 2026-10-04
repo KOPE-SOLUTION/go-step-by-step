@@ -10,7 +10,7 @@ func main() {
 	var retries int
 	var label string
 	var failed bool
-	celsius = 28.25
+	celsius = 28.26
 
 	fmt.Printf("%s: %.1f %s\n", deviceID, celsius, unit)
 	fmt.Printf("connected=%t retries=%d\n", connected, retries)
